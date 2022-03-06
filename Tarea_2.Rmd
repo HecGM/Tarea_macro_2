@@ -116,6 +116,17 @@ constant-relative-risk-aversion form, $u(C_{t})= \frac{C_{t}^{1- \theta}}{1- \th
 \item[] \textit{c. For the case of $\phi>0$, which has a larger variance, the innovation in income, $u_{t}$, or the innovation in consumption, $C_{t} - \mathbb{E}_{t-1}[C_{t}]$? Do consumers use saving and borrowing to smooth the path of consumption relative to income in this model? Explain.}
 \end{enumerate}
 
+```{r}
+pacman::p_load(tidyverse,
+               ggthemes,
+               haven, readxl,
+               kableExtra,
+               cowplot, ggplot2, scales, viridis, latticeExtra,
+               knitr, tinytex, reshape, lubridate, scales, reshape2)
+
+
+set.seed(1000) #Utilizamos una semilla para poder replicar los experimentos. 
+```
 ## Ejercicio 2
 **2. Simule una variedad de agentes que tienen ingresos permanentes diferentes e ingresos transitorios diferentes y calcule la relación entre consumo e ingreso que resulta dada una variedad de supuestos para las varianzas de cada tipo de ingreso siguiendo estos pasos:**
 
@@ -124,31 +135,84 @@ constant-relative-risk-aversion form, $u(C_{t})= \frac{C_{t}^{1- \theta}}{1- \th
 
 **Cree un vector de 20 ingresos permanentes aleatorios $Y_i^P$, distribuidos normalmente, con media 10 y varianza $\sigma^{P}$. Cree 20 vectores (cada uno de estos vectores representa una persona) cada uno con 100 observaciones idénticas del ingreso permanente. Grafíquelos (eje x, persona; eje y, ingreso permanente).**
 
+```{r, echo=FALSE}
 
+Y_p <- list()
+for(i in 1:20){
+  Y_p[[i]] <- rnorm(1:100, mean=10)
+} 
+
+df_yp <- data.frame(t(matrix(unlist(Y_p), nrow=length(Y_p), byrow=TRUE))) #I para cada individuo.
+  for(i in 1:20){
+    names(df_yp)[i] <- paste("I", i, sep= "")
+  }
+
+boxplot(df_yp, xlab="Personas", ylab="Ingreso permamente")
+
+```
 ### (b) 
 
 **Cree 20 vectores de 100 ingresos transitorios aleatorios $Y_{i,t}^{T}$, distribuidos normalmente, con media 0 y con varianza $\sigma^{T}$. Grafíquelos.**
 
+```{r, echo=FALSE}
+
+Y_t <- list()
+for(i in 1:20){
+  Y_t[[i]] <- rnorm(1:100, mean=0)
+} 
+
+df_yt <- data.frame(t(matrix(unlist(Y_t), nrow=length(Y_t), byrow=TRUE))) #I para cada individuo.
+  for(i in 1:20){
+    names(df_yt)[i] <- paste("I", i, sep= "")
+  }
+boxplot(df_yt, xlab="Personas", ylab="Ingreso transitorio")
+
+```
 
 ### (c) 
 
 **Cree 20 vectores de 100 ingresos totales $Y_{i,t}$, sumando el ingreso transitorio y el permanente. Grafíquelos.**
-
+```{r, echo=TRUE}
+df_YT <- df_yp+df_yt
+boxplot(df_YT, xlab="Personas", ylab="Ingreso total")
+```
 
 ### (d) 
 
 **Cree 20 vectores de 100 errores de medición $\epsilon_{i,t}$, distribuidos normalmente, con media 0 y varianza $\sigma^{\epsilon}>0$. Grafíquelos.**
+```{r, echo=FALSE}
+e <- list()
+for(i in 1:20){
+  e[[i]] <- rnorm(1:100, mean=0)
+} 
 
+df_e <- data.frame(t(matrix(unlist(e), nrow=length(e), byrow=TRUE))) #I para cada individuo.
+  for(i in 1:20){
+    names(df_e)[i] <- paste("I", i, sep= "")
+  }
+boxplot(df_e, xlab="Personas", ylab="Ingreso transitorio")
+
+```
 
 ### (e) 
 
 **Cree  20 vectores de 100 consumos $C_{i,t}$ cada uno, de acuerdo a la siguiente regla $C_{i,t}=Y_{i}^{P}+0.1Y_{i,t}^{T}+\epsilon_{i,t}$. Grafíquelos.**
 
+```{r, echo=TRUE}
+df_c <- df_yp + (0.1*df_yt) + df_e
 
+boxplot(df_c, xlab="Personas", ylab="Consumo")
+
+```
 ### (f) 
 
 **Estime la relación lineal entre ingreso total y consumo $C_{i,t}=\alpha+\beta Y_{i,t}+\epsilon_{i,t}$. Describa el resultado de su estimación y grafíque la relación entre las observaciones del consumo y las del ingreso.**
+```{r,echo=FALSE}
+x <- 1:20
+x <- t(as.data.frame(x))
+df_ytt <- t(df_yt)
 
+```
 
 ### (g) 
 
