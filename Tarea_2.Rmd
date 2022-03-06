@@ -31,3 +31,251 @@ header-includes:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align="center", fig.pos = "H", fig.width = 7, fig.height = 3)
 ```
+
+\newpage
+
+# Preguntas teóricas
+**Resuelva los ejercicios 8.1, 8.2, 8.4, 8.5 y 8.6, (Romer, 5a Ed). Realice estos con ayuda de su laboratorista y entregue las soluciones a máquina, utilizando LaTeX.**
+
+## Ejercicio 8.1, Romer (5ta Edicion)
+
+\begin{enumerate}
+\item[] \textbf{8.1} Life-cycle saving. (Modigliani and Brumberg, 1954.) Consider an individual who lives from 0 to T, and whose lifetime utility is given by $U= \int_{t=0}^{T} u(C(t))\,dt$, where $ u'(\cdot)>0$, $u''(\cdot)<0$. The individual’s income is $ Y_{0}+gt$ for $ 0 \le t < R$, and $0$ forn $ R \le t \le T$. The retirement age, $R$, satisfies $0<R<T$. The interest rate is zero, the individual has no initial wealth, and there is no uncertainty.
+\end{enumerate}
+
+### Ejercicio (a)
+\begin{enumerate}
+\item[] \textit{a. What is the individual’s lifetime budget constraint?}
+\end{enumerate}
+
+### Ejercicio (b)
+\begin{enumerate}
+\item[] \textit{b. What is the individual’s utility-maximizing path of consumption, $C(t)$?}
+\end{enumerate}
+
+### Ejercicio (c)
+\begin{enumerate}
+\item[] \textit{c. What is the path of the individual’s wealth as a function of $t$?}
+\end{enumerate}
+
+## Ejercicio 8.2, Romer (5ta Edicion)
+\begin{enumerate}
+\item[] \textbf{8.2} The average income of farmers is less than the average income of non-farmers, but fluctuates more from year to year. Given this, how does the permanent-income hypothesis predict that estimated consumption functions for farmers and nonfarmers differ?
+\end{enumerate}
+
+## Ejercicio 8.4, Romer (5ta Edicion)
+\begin{enumerate}
+\item[] \textbf{8.4} In the model of Section 8.2, uncertainty about future income does not affect consumption.
+Does this mean that the uncertainty does not affect expected lifetime utility?
+\end{enumerate}
+
+## Ejercicio 8.5, Romer (5ta Edicion)
+\begin{enumerate}
+\item[] \textbf{8.5} (This follows Hansen and Singleton, 1983.) Suppose instantaneous utility is of the
+constant-relative-risk-aversion form, $u(C_{t})= \frac{C_{t}^{1- \theta}}{1- \theta}$, $ \theta >0 $. Assume that the real interest rate, $r$ , is constant but not necessarily equal to the discount rate, $\rho$.
+\end{enumerate}
+
+### Ejercicio (a)
+\begin{enumerate}
+\item[] \textit{a. Find the Euler equation relating $C_{t}$ to expectations concerning $C_{t +1}$.}
+\end{enumerate}
+
+### Ejercicio (b)
+\begin{enumerate}
+\item[] \textit{b. Suppose that the log of income is distributed normally, and that as a result the log of $C_{t+1}$ is distributed normally; let $\sigma^{2}$ denote its variance conditional on information available at time $t$. Rewrite the expression in part (a) in terms of $ln C_{t}$ , $ \mathbb{E}_{t}[lnC_{t+1}]$, $\sigma^{2}$, and the parameters $r$ , $\rho$, and $\theta$ . (Hint: If a variable $x$ is distributed normally with mean $\mu$ and variance $V$, $\mathbb{E}[e^{x}] = e^{\mu} e^{V/2}$.)}
+\end{enumerate}
+
+### Ejercicio (c)
+\begin{enumerate}
+\item[] \textit{c. Show that if $r$ and $\sigma^{2}$ are constant over time, the result in part (b) implies that the log of consumption follows a random walk with drift: $lnC_{t+1} = a + lnC_{t} + u_{t+1}$, where $u$ is white noise.}
+\end{enumerate}
+
+### Ejercicio (d)
+\begin{enumerate}
+\item[] \textit{d. How do changes in each of $r$ and $\sigma^{2}$ affect expected consumption growth, $ \mathbb{E}_{t}[lnC_{t+1}-lnC_{t}]$? Interpret the effect of $\sigma^{2}$ on expected consumption growth in light of the discussion of precautionary saving in Section 8.6.}
+\end{enumerate}
+
+
+## Ejercicio 8.6, Romer (5ta Edicion)
+\begin{enumerate}
+\item[] \textbf{8.6} A framework for investigating excess smoothness. Suppose that $C_{t}$ equals $ \left( \frac{r}{1 + r} \right) \left (A_{t} + \sum_{s=0}^{\infty} \frac {\mathbb{E}[Y_{t+s}]}{(1+r)^{s}} \right)$.
+\end{enumerate}
+
+### Ejercicio (a)
+\begin{enumerate}
+\item[] \textit{a. Show that these assumptions imply that $\mathbb{E}_{t}[C_{t +1}]=C_{t}$ (and thus that consumption follows a random walk) and that $ \sum_{s=0}^{\infty}\frac {\mathbb{E}[C_{t+s}]}{(1+r)^{s}}=A_{t} + \sum_{s=0}^{\infty} \frac {\mathbb{E}[Y_{t+s}]}{(1+r)^{s}}$.}
+\end{enumerate}
+
+### Ejercicio (b)
+\begin{enumerate}
+\item[] \textit{b. Suppose that $\Delta Y_{t} = \phi \Delta Y_{t-1}+u_{t}$, where $u$ is white noise. Suppose that $Y_{t}$ exceeds $\mathbb{E}_{t-1}[Y_{t}]$ by $1$ unit (that is, suppose $u_{t} = 1$). By how much does consumption increase?}
+\end{enumerate}
+
+### Ejercicio (c)
+\begin{enumerate}
+\item[] \textit{c. For the case of $\phi>0$, which has a larger variance, the innovation in income, $u_{t}$, or the innovation in consumption, $C_{t} - \mathbb{E}_{t-1}[C_{t}]$? Do consumers use saving and borrowing to smooth the path of consumption relative to income in this model? Explain.}
+\end{enumerate}
+
+## Ejercicio 2
+**2. Simule una variedad de agentes que tienen ingresos permanentes diferentes e ingresos transitorios diferentes y calcule la relación entre consumo e ingreso que resulta dada una variedad de supuestos para las varianzas de cada tipo de ingreso siguiendo estos pasos:**
+
+
+### (a) 
+
+**Cree un vector de 20 ingresos permanentes aleatorios $Y_i^P$, distribuidos normalmente, con media 10 y varianza $\sigma^{P}$. Cree 20 vectores (cada uno de estos vectores representa una persona) cada uno con 100 observaciones idénticas del ingreso permanente. Grafíquelos (eje x, persona; eje y, ingreso permanente).**
+
+
+### (b) 
+
+**Cree 20 vectores de 100 ingresos transitorios aleatorios $Y_{i,t}^{T}$, distribuidos normalmente, con media 0 y con varianza $\sigma^{T}$. Grafíquelos.**
+
+
+### (c) 
+
+**Cree 20 vectores de 100 ingresos totales $Y_{i,t}$, sumando el ingreso transitorio y el permanente. Grafíquelos.**
+
+
+### (d) 
+
+**Cree 20 vectores de 100 errores de medición $\epsilon_{i,t}$, distribuidos normalmente, con media 0 y varianza $\sigma^{\epsilon}>0$. Grafíquelos.**
+
+
+### (e) 
+
+**Cree  20 vectores de 100 consumos $C_{i,t}$ cada uno, de acuerdo a la siguiente regla $C_{i,t}=Y_{i}^{P}+0.1Y_{i,t}^{T}+\epsilon_{i,t}$. Grafíquelos.**
+
+
+### (f) 
+
+**Estime la relación lineal entre ingreso total y consumo $C_{i,t}=\alpha+\beta Y_{i,t}+\epsilon_{i,t}$. Describa el resultado de su estimación y grafíque la relación entre las observaciones del consumo y las del ingreso.**
+
+
+### (g) 
+
+**Incremente la varianza del ingreso permanente, y disminuya la varianza del ingreso transitorio y vuelva a estimar y graficar la relación entre el consumo y el ingreso.**
+
+
+### (h) 
+
+**Disminuya la varianza del ingreso permanente, y aumente la varianza del ingreso transitorio y vuelva a estimar y graficar la relación entre el consumo y el ingreso.**
+
+
+## Ejercicio 3
+**3. Estudie el consumo agregado en México siguiendo estos pasos:**
+
+
+### (a) 
+
+**Obtenga, del Inegi, datos de ``C'', el consumo agregado en México, de ``Y'', el producto agregado, de ``I'', la inversión agregada, de ``G'', el gasto del gobierno y de , de ``NX'', las exportaciones netas,  entre 1980 y el tercer trimestre de 2019, EN TÉRMINOS REALES.**
+
+
+### (b) 
+
+**Grafíque dichas serie de tiempo juntas para comparalas visualmente.  (Compare la gráfica de las variables (de las que son siempre positivas) en dos versiones: a) su valor real original, y b) después de sacarles el logaritmo natural).**
+
+
+### (c) 
+
+**Grafique también la tasa de crecimiento, $\% \Delta a_t = (a_t-a_{t-1})/a_{t-1}$,  de todas estas series.**
+
+
+### (d) 
+
+**Enfóquese ahora nada más al consumo y al producto agregado. Grafique la relación entre una serie y la otra, es decir, grafique los puntos $(\% \Delta Y_t,\% \Delta C_t)$ poniendo el consumo en las ordenadas.**
+
+
+### (e) 
+
+**Calcule la volatilidad de las dos series de tasas de crecimiento. ¿Qué es más volatil, el ingreso o el consumo?**
+
+
+### (f) 
+
+**Estime cuatro modelos lineales: $C_t=a+bY_t+\epsilon_t$, $\Delta\%C_t=a+b \Delta\%Y_t+\epsilon_t$, $\Delta\%C_t=a+b \Delta\%Y_{t-1}+\epsilon_t$ y $c_t=a+by_t+\epsilon_t$, donde las minúsculas reflejan el logaritmo de la variable en mayúscula, y reporte los valores estimados de los coeficientes, los estadísticos T, las R cuadradas, etc.**
+
+
+### (g) 
+
+**Explique qué se podría concluir, si fuera el caso, a cerca de la Hipótesis de Ingreso Permanente para México a partir de los coeficientes encontrados.**
+
+
+## Ejercicio 4
+**4. Estudie el consumo de los individuos en México, siguiendo estos pasos:**
+
+
+### (a) 
+
+**Baje los datos de un año de la ENIGH del sitio del INEGI, (Cada grupo va a utilizar unos datos diferentes: Grupo 1-2020, Grupo 2-2018, Grupo 3-2016, ..., etc.)  y establezca el número de hogares y el ingreso y el gasto promedio.**
+
+
+### (b) 
+
+**Estime una relación entre ingreso y gasto y reporte sus resultados.**
+
+
+### (c) 
+
+**Estime una relación entre ingreso y gasto pero para hogares unipersonales de edad entre 30 y 40 años de edad de la Ciudad de México.**
+
+
+### (d) 
+
+**Para todos los hogares unipersonales, estime el valor promedio del ingreso por edad, separando la muestra en grupos de edad de cinco años cada uno y grafíquelo.**
+
+
+### (e) 
+
+**Interprete sus resultados a la luz de la HIP y comparados con los resultados para las variablea agregadas.**
+
+
+## Ejercicio 5
+**5. Estudie el ``acertijo del premio al riesgo'' para el caso de México siguiendo estos pasos:**
+
+
+### (a) 
+
+**Consiga los valores anuales de IPC, el Indice de Precios y Cotizaciones de la Bolsa Mexicana de Valores por lo menos desde 1990.**
+
+
+### (b) 
+
+**Calcule su tasa de retorno nominal para cada año.**
+
+
+### (c) 
+
+**Consiga los valores promedio anual de la tasa de interés de CETES a 7 días, o la TIIE, la tasa inter-bancaria de equilibrio, y de la tasa de interés a un año, para el periodo que esté disponible.**
+
+
+### (d) 
+
+**Calcule la diferencia entre el retorno del IPC y el retorno de invertir en CETES a distintos plazos.**
+
+
+### (e) 
+
+**Calcule la covarianza entre dicha diferencias y  la tasa de crecimiento real del consumo agregado de la economía mexicana.**
+
+
+### (f) 
+
+**Calcule el valor de aversión relativa al riesgo que implican estos números, dado el supuesto de una utilidad con forma ARRC.**
+
+
+### (g) 
+
+**Ahora calcule la covarianza entre dicha diferencias y  la tasa de crecimiento real del consumo agregado DE BIENES IMPORTADOS [aquí hay una serie: www.inegi.org.mx/temas/imcp/] de la economía mexicana.**
+
+
+### (h) 
+
+**Calcule el valor de aversión relativa al riesgo que implican estos números, dado el supuesto de una utilidad con forma ARRC.**
+
+
+### (i) 
+
+**Interprete sus resultados.**
+
+
+## Ejercicio 6
+**6. Utilice el método del árbol binomial para, primero, explicar el precio P=80 de un activo y, después, valuar un ``call'' sobre dicho activo, con precio de ejercicio K=P-N donde N es el número de su equipo, (Grupo 1, use N=1, Grupo 2, use N=2, etc) asumiendo una tasa de interés de 5 por ciento:**
