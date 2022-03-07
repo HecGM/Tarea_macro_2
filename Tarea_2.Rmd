@@ -20,6 +20,7 @@ header-includes:
 - \usepackage{graphicx}
 - \usepackage{float}
 - \usepackage{lscape}
+- \usepackage{amsmath}
 ---
 
 \newpage
@@ -63,11 +64,60 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align=
 \item[] \textbf{8.2} The average income of farmers is less than the average income of non-farmers, but fluctuates more from year to year. Given this, how does the permanent-income hypothesis predict that estimated consumption functions for farmers and nonfarmers differ?
 \end{enumerate}
 
+De los supuestos que proporciona Milton Friedman para su Hipótesis del Ingreso Permanente se deducen los siguientes parámetros para un modelo de regresión lineal que busca explicar el consumo $C_i = a + bY_i + u_i$:
+
+$$
+\hat{b}=\frac{var(Y^P)}{var(Y^P)+var(Y^T)} \qquad \text{y} \qquad \hat{a}=(1-\hat{b})\bar{Y^P}
+$$
+
+en donde $Y^P$ representa el ingreso permanente, $Y^T$ el ingreso transitorio (i.e. $Y_t - \frac{1}{T}\sum{Y_t}$) y $\bar{Y^P}$ el ingreso permanente promedio. 
+
+
+Sabemos que el ingreso transitorio de los agricultores presenta mayor fluctuación que el ingreso transitorio de los no agricultores, por lo que $var(Y^T)_A > var(Y^T)_{NA}$. También conocemos el hecho de que $\bar{Y^P}_A < \bar{Y^P}_{NA}$.
+
+Suponiendo que $var(Y^P)$ es la misma para ambos grupos, se tiene entonces que $\hat{b}_A<\hat{b}_{NA}$. Esto implica que, en tal modelo, la pendiente del grupo no agricultor es mayor y, por tanto, que un cambio en el ingreso de ambos grupos de la misma magnitud afecta más al consumo de los no agricultores. Por otra parte, en el parámetro $\hat{a}$ se tienen dos efectos que se contraponen: $1-\hat{b}_A > 1-\hat{b}_{NA} \quad \text{y} \quad \bar{Y^P}_A<\bar{Y^P}_{NA}$, y no está claro que la ordenada para cierto grupo sea mayor, menor, o igual que la del otro.
+
+Además, recordemos que un aumento en el ingreso incrementará el consumo solo en la medida en que aumenta el ingreso permanente. Cuando $\Delta Y^P$ es pequeño en relación con $\Delta Y^T$, poco del cambio en el ingreso $\Delta Y$ proviene del cambio en el ingreso permanente y, en consecuencia, el cambio en el consumo será menor. En el caso de los agricultores, $\Delta Y^T_A>\Delta Y^T_A$, por lo que el consumo no varía tanto en relación a $\Delta Y_A$ en comparación con los no agricultores.
+
 ## Ejercicio 8.4, Romer (5ta Edicion)
 \begin{enumerate}
 \item[] \textbf{8.4} In the model of Section 8.2, uncertainty about future income does not affect consumption.
 Does this mean that the uncertainty does not affect expected lifetime utility?
 \end{enumerate}
+
+En esta sección se asume una forma funcional cuadrática de la utilidad. Pdemos escribir las siguientes funciones para describir el caso con certidumbre y el caso con incertidumbre, respectivamente:
+
+$$
+U = \sum_{0}^{T}(C_t-\frac{a}{2}C_t^2) \quad \text{y} \quad E[U] = E \left[ \sum_{0}^{T}(C_t-\frac{a}{2}C_t^2) \right ]
+$$
+Para el caso con incertidumbre, se tienen una serie de elementos y supuestos que son fundamentales para el análisis, a saber:
+
+1. El agente espera consumir en el periodo $t$ lo mismo que consumió en el periodo 1: $C_1 = E_1[C_t]$.
+2. El paso aleatorio, $e_t$, tiene una medio igual cero: $E_{k}[e_{t}] = 0 \quad \forall t,k<t$.
+3. La hipótesis del ingreso permanente implica que el consumo sigue una caminata aleatoria: $C_t = C_{t-1}+e_t$
+
+Supongamos que nos encontramos en en el periodo $t-1$ y por tanto conocemos lo que pasa en tal periodo ($E_{t-1}[C_{t-1}] = C_{t-1}$ i.e. el consumo en $t-1$ ya se sabe y opera como una constante). Incorporando los resultados anteriores en la ecuación que representa la incertidumbre, obtenemos:
+
+
+\begin{equation*} 
+\begin{split}
+E[U]  &=  E \left [ \sum_{1}^{T}(C_t-\frac{a}{2}C_t^2) \right ] \\
+      &=  E \left [ \sum_{1}^{T}(C_{t-1}+e_t-\frac{a}{2}(C_{t-1}+e_t)^2 \right ] \\
+      &= E \left [ \sum_{1}^{T}(C_{t-1}+e_t-\frac{a}{2}(C_{t-1}^2+2C_{t-1}e_t+e_t^2) \right ] \\
+      &=  \sum_{1}^{T} \left [E[C_{t-1}]+E[e_t]-\frac{a}{2}(E[C_{t-1}^2]+2E[C_{t-1}e_t]+E[e_t^2]) \right ]\\
+      &=  \sum_{1}^{T} \left [C_{t-1}+E[e_t]-\frac{a}{2}(E[C_{t-1}^2]+2C_{t-1}E[e_t]+var[e_t]+E[e_t]^2) \right ] \\
+      &=  \sum_{1}^{T} \left [C_{t-1}-\frac{a}{2}(C_{t-1}^2+var[e_t]) \right ]
+\end{split}
+\end{equation*}
+
+
+Como $var[e_t] \geq 0$, notemos que el la utilidad de por vida del agente resulta mayor en el caso con certidumbre que bajo incertidumbre, ya que a esta última se le está restando el término $\frac{a}{2}var[e_t]$. Es decir:
+$$
+E[U] = \sum_{1}^{T} \left [C_{t-1}-\frac{a}{2}(C_{t-1}^2+var[e_t]) \right ] \leq \sum_{0}^{T}(C_{t-1}-\frac{a}{2}C_{t-1}^2) = U
+$$
+
+
+Por lo tanto, la incorporación de incertidumbre **sí** afecta a la utilidad esperada de toda la vida.
 
 ## Ejercicio 8.5, Romer (5ta Edicion)
 \begin{enumerate}
