@@ -392,4 +392,103 @@ df_ytt <- t(df_yt)
 
 
 ## Ejercicio 6
-**6. Utilice el método del árbol binomial para, primero, explicar el precio P=80 de un activo y, después, valuar un ``call'' sobre dicho activo, con precio de ejercicio K=P-N donde N es el número de su equipo, (Grupo 1, use N=1, Grupo 2, use N=2, etc) asumiendo una tasa de interés de 5 por ciento:**
+**6. Utilice el método del árbol binomial para, primero, explicar el precio P=80 de un activo y, después, valuar un "call" sobre dicho activo, con precio de ejercicio K=P-N donde N es el número de su equipo, (Grupo 1, use N=1, Grupo 2, use N=2, etc) asumiendo una tasa de interés de 5 por ciento:**
+
+El pago que brinda la opción puede resumirse mediante las siguientes ecuaciones, en las cuales suponemos que $S_1(+)>S_1(-)$:
+
+$$
+D_1(+) = max\{0, S_1(+)-K\} = max\{0,S_1(+)-79\}= S_1(+)-79. \\
+$$
+$$
+D_1(-) = max\{0, S_1(-)-K\} = max\{0,S_1(-)-79\}=0.
+$$
+
+en donde $S_1(+)$ representa el precio del activo subyacente en el estado de la naturaleza en donde se aprecia, $S_1(-)$ representa el precio del subyacente en el estado de la naturaleza en que se deprecia. 
+
+En este ejercicio consideraremos una serie de valores que representan una apreciación y otra en donde el subyacente se deprecia con el objetivo de observar más detalladamente el precio de la opción.
+
+```{r}
+#Generemos un conjunto de precios números aleatorios para representar los posibles valores del activo en el siguiente periodo.
+set.seed(20)
+pos <- floor(runif(20, min=81, max=110))
+neg <- floor(runif(20, min=50, max=79))
+
+#Nota: se fijó una semilla al inicio del ejercicio 2, lo que permitirá la replicabilidad.
+
+```
+
+
+Resulta conveniente incorporar en este ejercicio el uso de una "técnica de arbitraje", apodada *Delta Hedging*. Tal técnica involucra *cubrir* la opción (*hedge the option*) con el activo suficiente para generar un portafolio libre de riesgo. Entonces, el portafolio consistirá en una proporción que se invierte en el activo subyacente, denotada por $\Delta$ y en una posición en una opción *call*:
+$$
+V_t = \Delta S_t - D_t
+$$
+en donde $V_t$ es el valor del portafolio en el tiempo $t$. Para que tal estrategia sea libre de riesgo, debe valer lo mismo en $t=1$ bajo todo estado de la naturaleza. Por tanto, tenemos la siguiente identidad:
+
+$$
+\Delta S_1(+)-D_1(+)=\Delta S_1(-)-D_1(-)
+\iff 
+\Delta^*=\frac{S_1(+)-79}{S_1(+)-S_1(-)}.
+$$
+
+Obtuvimos un valor de $\Delta$ que permite que el valor del portafolio en el periodo $t=1$ sea el mismo sin importar si le va bien o mal al activo subyacente. Es decir:
+
+$$
+\text{Apreciación:} \quad V_{1A}=\Delta^* S_1(+)-D_1(+) = \left ( \frac{S_1(+)-79}{S_1(+)-S_1(-)} \right ) S_1(+)-(S_1(+)-79)
+$$
+$$
+\text{Depreciación:} \quad V_{1D}=\Delta^* S_1(-)-D_1(-) = \left ( \frac{S_1(+)-79}{S_1(+)-S_1(-)} \right ) S_1(-)
+$$
+Notar que si consideramos, por ejemplo, $S_1(+)=106$. $S_1(-)=64$, entonces $\Delta^* = 27/42=0.642$.Luego, tenemos:
+
+$$
+ V_{1A} = V_{1D} = \alpha^*
+$$
+En donde $\alpha^*$ denota el valor del portafolio en el siguiente periodo. Siguiendo el ejemplo ilustrativo, si se consideran los precios $S_1(+)=106$ y $S_1(-)=64$, tendríamos:
+$$
+ V_{1A}= \Delta^* S_1(+)-D_1(+) = \left ( \frac{S_1(+)-79}{S_1(+)-S_1(-)} \right )S_1(+)-(S_1(+)-79) = (0.6428)(106)-27= \textbf{41.14}.
+$$
+$$
+ \text{y} \quad V_{1D}= \Delta^* S_1(-)-D_1(-) = \left ( \frac{S_1(+)-79}{S_1(+)-S_1(-)} \right )S_1(-) = (0.6428)(64)-0= \textbf{41.14}.
+$$
+El valor del portafolio en el siguiente periodo (no importa la unidad: puede ser 1 día, 1 mes, 1 año, 1 década) valdrá, con toda probabilidad, $\alpha^*$ (i.e. $Prob(V_1=\alpha^*)=1$). En efecto, las condiciones arriba mencionadas se cumplen y, a estos precios, $Prob(V_1=41.14)=1$.
+
+
+```{r}
+#Construimos un data frame en donde se consideren ambos escenarios.
+
+states <- data.frame("Apreciación"=pos,"Depreciación"=neg)
+apr <- states[,1]
+dpr <- states[,2]
+
+states <- mutate(states, delta = (apr-79)/(apr-dpr))
+
+#Valor del portafolio con certidumbre
+dlt <- states[,3]
+
+states <- mutate(states, valor_t1 = dlt*apr-(apr-79))
+
+```
+
+Ahora bien, el valor del portafolio en el periodo inicial puede verse como el valor del portafolio en el siguiente periodo *descontado* por una tasa de interés libre de riesgo, que en este caso es del 5\%.
+
+$$
+V_0 = \frac{V_1}{1+r} \iff \Delta^*S_0-D_0=\frac{\alpha^*}{1.05} \iff D_0^*= \Delta^*80- \frac{\alpha^*}{1.05}
+$$
+En donde $D_0^*$ es el precio que debe tener la opción, dados los estados de la naturaleza. Por ejemplo, para el escenario en que el precio del subyacente pudiera subir a 106, o bien caer a 55, el precio de la opción sería igual a:
+
+$$
+D_0^*=(0.6428)(80)-\frac{41.14}{1.05}= \textbf{12.24}.
+$$
+Resumamos lo anterior en una tabla en donde se consideran 20 escenarios.
+
+```{r}
+states <- mutate(states, prima = (dlt*80)-(valor_t1/1.05))
+names(states) <- c("Apreciación","Depreciación","Delta","Valor en t=1","Precio de la opción")
+
+knitr::kable(
+  states, booktabs = TRUE, align = "c",format = 'latex',
+  caption = "Precio de la opción para 20 escenarios"
+)%>%
+  kable_styling(latex_options = "HOLD_position")
+
+```
