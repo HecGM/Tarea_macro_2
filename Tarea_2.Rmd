@@ -394,6 +394,14 @@ df_ytt <- t(df_yt)
 ## Ejercicio 6
 **6. Utilice el método del árbol binomial para, primero, explicar el precio P=80 de un activo y, después, valuar un "call" sobre dicho activo, con precio de ejercicio K=P-N donde N es el número de su equipo, (Grupo 1, use N=1, Grupo 2, use N=2, etc) asumiendo una tasa de interés de 5 por ciento:**
 
+Resulta intuitivo representar el problema de la valuación de opciones mediante un "árbol" en donde se consideran distintos escenarios. En la siguiente figura, el primer nodo del árbol izquierdo contempla el precio actual del activo subyacente, el cual puede ser una acción, commodity, metal, entre otros. Los siguientes nodos representan los dos valores que puede tomar tal activo en el siguiente periodo, $t=1$, es decir, los posibles estados de la naturaleza. En particular, el activo puede subir de precio (apreciarse) o bajar de precio (depreciarse). 
+
+```{r echo=F, fig.cap= "Representación del Modelo Binomial", fig.pos='H'}
+imagen1 <- ggdraw() + draw_image("general.png", scale=0.9)
+imagen1
+```
+Por otra parte, el árbol de la derecha representa los pagos de la opción en ambos estados de la naturaleza. Es importante notar que si el activo subyacente se deprecia, entonces no se ejerce la opción, por lo que el pago de la opción será igual a cero y la pérdida consistirá en el precio que pagó el inversionista para ser acreedor de tal opción.  Si la opción se ejerce, el pago que se recibe es $D_1(+)=S_1(+)-K=S_1(+)-79$, en donde $K=S_0-1$ (porque éste es el equipo 1). El tema de interés es, justamente, obtener un valor confiable que nos diga cuál debería ser ese precio de entrada (o precio de la opción), dado que se contemplan dos estados de la naturaleza. En otras palabras, queremos calcular el valor de $D_0$.
+
 El pago que brinda la opción puede resumirse mediante las siguientes ecuaciones, en las cuales suponemos que $S_1(+)>S_1(-)$:
 
 $$
@@ -483,12 +491,24 @@ Resumamos lo anterior en una tabla en donde se consideran 20 escenarios.
 
 ```{r}
 states <- mutate(states, prima = (dlt*80)-(valor_t1/1.05))
-names(states) <- c("Apreciación","Depreciación","Delta","Valor en t=1","Precio de la opción")
+states <- mutate(states, escenario = c(1:20))
+escenario <- states[,6]
+
+names(states) <- c("Apreciación","Depreciación","Delta","Valor en t=1","Precio de la opción","Escenario")
+
+states <- states %>% relocate(Escenario, .before="Apreciación")
 
 knitr::kable(
-  states, booktabs = TRUE, align = "c",format = 'latex',
+  states, booktabs = TRUE, align = "c",format = 'latex', digits = 2,
   caption = "Precio de la opción para 20 escenarios"
 )%>%
   kable_styling(latex_options = "HOLD_position")
 
 ```
+
+```{r echo=F, fig.cap= "Representación gráfica del modelo para el escenario 1"}
+imagen2 <- ggdraw() + draw_image("ejerc.png", scale=0.9)
+imagen2
+```
+
+
