@@ -544,7 +544,7 @@ Ahora bien, el valor del portafolio en el periodo inicial puede verse como el va
 $$
 V_0 = \frac{V_1}{1+r} \iff \Delta^*S_0-D_0=\frac{\alpha^*}{1.05} \iff D_0^*= \Delta^*80- \frac{\alpha^*}{1.05}
 $$
-En donde $D_0^*$ es el precio que debe tener la opción, dados los estados de la naturaleza. Por ejemplo, para el escenario en que el precio del subyacente pudiera subir a 106, o bien caer a 55, el precio de la opción sería igual a:
+En donde $D_0^*$ es el precio que debe tener la opción, dados los estados de la naturaleza. Por ejemplo, para el escenario en que el precio del subyacente pudiera subir a 106, o bien caer a 64, el precio de la opción sería igual a:
 
 $$
 D_0^*=(0.6428)(80)-\frac{41.14}{1.05}= \textbf{12.24}.
