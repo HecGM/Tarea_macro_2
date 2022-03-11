@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.3.6)  9 MAR 2022 12:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.3.6)  11 MAR 2022 00:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -599,7 +599,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.38 ...line {subsubsection}{(a)}{10}{section*.38}
+l.38 ...line {subsubsection}{(a)}{12}{section*.38}
                                                   % [1])
 \tf@toc=\write5
 \openout5 = `Tarea_2.toc'.
@@ -618,75 +618,76 @@ LaTeX Info: Redefining \% on input line 1.
 \tf@lot=\write7
 \openout7 = `Tarea_2.lot'.
 
-[3] [4] [5]
-Overfull \hbox (8.89594pt too wide) in paragraph at lines 372--373
+[3] [4] [5] [6]
+Overfull \hbox (8.89594pt too wide) in paragraph at lines 448--449
 []\T1/lmr/bx/n/10 8.6 \T1/lmr/m/n/10 A frame-work for in-ves-ti-gat-ing ex-cess smooth-ness. Sup-pose that $\OML/lmm/m/it/10 C[]$ \T1/lmr/m/n/10 equals $[] []$. 
  []
 
-[6]
-<Tarea_2_files/figure-latex/unnamed-chunk-2-1.pdf, id=342, 505.89pt x 216.81pt>
+[7]
+<Tarea_2_files/figure-latex/unnamed-chunk-2-1.pdf, id=344, 505.89pt x 216.81pt>
 File: Tarea_2_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
 <use Tarea_2_files/figure-latex/unnamed-chunk-2-1.pdf>
-Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-2-1.pdf  used on input line 414.
+Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-2-1.pdf  used on input line 490.
 (pdftex.def)             Requested size: 469.76265pt x 201.32684pt.
-<Tarea_2_files/figure-latex/unnamed-chunk-3-1.pdf, id=343, 505.89pt x 216.81pt>
+<Tarea_2_files/figure-latex/unnamed-chunk-3-1.pdf, id=345, 505.89pt x 216.81pt>
 File: Tarea_2_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pdf)
 <use Tarea_2_files/figure-latex/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-3-1.pdf  used on input line 423.
+Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-3-1.pdf  used on input line 499.
 (pdftex.def)             Requested size: 469.76265pt x 201.32684pt.
-[7 <./Tarea_2_files/figure-latex/unnamed-chunk-2-1.pdf> <./Tarea_2_files/figure-latex/unnamed-chunk-3-1.pdf>]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 432.
+[8 <./Tarea_2_files/figure-latex/unnamed-chunk-2-1.pdf>]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 508.
 (/Users/emilio/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<Tarea_2_files/figure-latex/unnamed-chunk-4-1.pdf, id=360, 505.89pt x 216.81pt>
+<Tarea_2_files/figure-latex/unnamed-chunk-4-1.pdf, id=358, 505.89pt x 216.81pt>
 File: Tarea_2_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
 <use Tarea_2_files/figure-latex/unnamed-chunk-4-1.pdf>
-Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-4-1.pdf  used on input line 438.
+Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-4-1.pdf  used on input line 514.
 (pdftex.def)             Requested size: 469.76265pt x 201.32684pt.
-<Tarea_2_files/figure-latex/unnamed-chunk-5-1.pdf, id=361, 505.89pt x 216.81pt>
+<Tarea_2_files/figure-latex/unnamed-chunk-5-1.pdf, id=359, 505.89pt x 216.81pt>
 File: Tarea_2_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
 <use Tarea_2_files/figure-latex/unnamed-chunk-5-1.pdf>
-Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-5-1.pdf  used on input line 447.
+Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-5-1.pdf  used on input line 523.
 (pdftex.def)             Requested size: 469.76265pt x 201.32684pt.
-[8 <./Tarea_2_files/figure-latex/unnamed-chunk-4-1.pdf> <./Tarea_2_files/figure-latex/unnamed-chunk-5-1.pdf>]
-<Tarea_2_files/figure-latex/unnamed-chunk-6-1.pdf, id=379, 505.89pt x 216.81pt>
+[9 <./Tarea_2_files/figure-latex/unnamed-chunk-3-1.pdf> <./Tarea_2_files/figure-latex/unnamed-chunk-4-1.pdf>]
+<Tarea_2_files/figure-latex/unnamed-chunk-6-1.pdf, id=377, 505.89pt x 216.81pt>
 File: Tarea_2_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 <use Tarea_2_files/figure-latex/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 464.
+Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 540.
 (pdftex.def)             Requested size: 469.76265pt x 201.32684pt.
+[10 <./Tarea_2_files/figure-latex/unnamed-chunk-5-1.pdf> <./Tarea_2_files/figure-latex/unnamed-chunk-6-1.pdf>]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 501.
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 501.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 577.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 577.
 (/Users/emilio/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `TS1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TS1/lmtt/b/n' tried instead on input line 501.
-[9 <./Tarea_2_files/figure-latex/unnamed-chunk-6-1.pdf>] [10] [11]
-<Tarea_2_files/figure-latex/unnamed-chunk-8-1.pdf, id=425, 505.89pt x 216.81pt>
+(Font)              Font shape `TS1/lmtt/b/n' tried instead on input line 577.
+[11] [12]
+<Tarea_2_files/figure-latex/unnamed-chunk-8-1.pdf, id=426, 505.89pt x 216.81pt>
 File: Tarea_2_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
 <use Tarea_2_files/figure-latex/unnamed-chunk-8-1.pdf>
-Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 668.
+Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 744.
 (pdftex.def)             Requested size: 469.76265pt x 201.32684pt.
-[12pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
+[13] [14pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.686 
-       <./Tarea_2_files/figure-latex/unnamed-chunk-8-1.pdf>] [13]
-<Tarea_2_files/figure-latex/unnamed-chunk-12-1.pdf, id=442, 505.89pt x 216.81pt>
+l.805 \]
+         \[ <./Tarea_2_files/figure-latex/unnamed-chunk-8-1.pdf>] [15]
+<Tarea_2_files/figure-latex/unnamed-chunk-12-1.pdf, id=450, 505.89pt x 216.81pt>
 File: Tarea_2_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 <use Tarea_2_files/figure-latex/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-12-1.pdf  used on input line 801.
+Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-12-1.pdf  used on input line 877.
 (pdftex.def)             Requested size: 469.76265pt x 201.32684pt.
-[14pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
+[16pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.807 
-      ] [15pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
+l.884 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.808 \end{document}
+l.884 \end{document}
                      <./Tarea_2_files/figure-latex/unnamed-chunk-12-1.pdf>] (./Tarea_2.aux
 LaTeX Info: Redefining \. on input line 25.
 LaTeX Info: Redefining \% on input line 25.
@@ -695,18 +696,18 @@ Package rerunfilecheck Info: File `Tarea_2.out' has not changed.
 (rerunfilecheck)             Checksum: 53C23BF9BDA8E1C20B63598B7AF50066;5764.
  ) 
 Here is how much of TeX's memory you used:
- 14906 strings out of 480236
- 236683 string characters out of 5894952
- 568786 words of memory out of 5000000
+ 14907 strings out of 480236
+ 236690 string characters out of 5894952
+ 567792 words of memory out of 5000000
  32456 multiletter control sequences out of 15000+600000
  516756 words of font info for 59 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  60i,16n,63p,537b,667s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/emilio/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/Users/emilio/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Users/emilio/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/emilio/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/Users/emilio/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/emilio/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}</Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></Users/emilio/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on Tarea_2.pdf (16 pages, 473491 bytes).
+Output written on Tarea_2.pdf (17 pages, 484179 bytes).
 PDF statistics:
- 565 PDF objects out of 1000 (max. 8388607)
- 488 compressed objects within 5 object streams
- 125 named destinations out of 1000 (max. 500000)
+ 569 PDF objects out of 1000 (max. 8388607)
+ 491 compressed objects within 5 object streams
+ 126 named destinations out of 1000 (max. 500000)
  457 words of extra memory for PDF output out of 10000 (max. 10000000)
 
