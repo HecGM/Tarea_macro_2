@@ -39,7 +39,7 @@ G=ts(gasto,start=1993,frequency=4)
 balanza<-variables[,18]
 XN=ts(balanza,start=1993,frequency=4)
 ```
-# Ejercicio 3. Estudie el consumo agregado en México siguiendo estos pasos: [3 horas, 0.5 puntos cada inciso]
+## Ejercicio 3. Estudie el consumo agregado en México siguiendo estos pasos: [3 horas, 0.5 puntos cada inciso]
 
 ```{r                           echo=FALSE, include=FALSE}
 ## Para hacerlas comparables, mejor las estandarizamos:
@@ -66,7 +66,7 @@ plot(xnst, main="Exportaciones netas 2002-2021", col="black")
 ```
 
 
-## a)  Obtenga, del Inegi, datos de “C”, el consumo agregado en México, de “Y”, elproducto agregado, de “I”, la inversión agregada, de “G”, el gasto del gobierno y de , de “NX”, las exportaciones netas, entre 1980 y el tercer trimestre de 2019,EN TÉRMINOS REALES
+### a)  Obtenga, del Inegi, datos de “C”, el consumo agregado en México, de “Y”, elproducto agregado, de “I”, la inversión agregada, de “G”, el gasto del gobierno y de , de “NX”, las exportaciones netas, entre 1980 y el tercer trimestre de 2019,EN TÉRMINOS REALES
 
 Se obtuvieron las siguientes series:
 
@@ -109,7 +109,7 @@ plot(unidas, main="Variables macroeconómicas seleccionadas 1993-2021", sub="Fue
 
 Nótese que las variables están suavizadas y normalizadas, así como están en términos reales a precios 2013. Notemos que la variación y la tendencia entre las variables $Y_t$, $I_t$ y $C_t$ es muy similar, lo que indica que hay un grado de asociación entre dichas variables muy importante. Notemos que esto puede tener alguna implicación en los resultados econométricos que se analizarán en el inciso f). 
 
-## b)  Grafique dichas serie de tiempo juntas para comparalas visualmente. (Compare la gráfica de las variables (de las que son siempre positivas) en dos versiones: a)su valor real original, y b) después de sacarles el logaritmo natural).
+### b)  Grafique dichas serie de tiempo juntas para comparalas visualmente. (Compare la gráfica de las variables (de las que son siempre positivas) en dos versiones: a)su valor real original, y b) después de sacarles el logaritmo natural).
 
 #### b.1) Graficando en su valor original
 
@@ -152,7 +152,7 @@ lnjuntas<-ts.union(lncts,lnyts,lnIts,lnGts,dframe=FALSE)
 plot(lnjuntas,main="Variables seleccionadas en logaritmo: 1993-2021",sub="Fuente: Elaboración propia con base en INEGI y Banxico",ylab="LogX",xlab="Tiempo")
 ```
 
-## c) Grafique también la tasa de crecimiento de todas estas series
+### c) Grafique también la tasa de crecimiento de todas estas series
 
 La tasa de crecimiento de cada una de las series está dada por la siguiente ecuación:
 
@@ -181,7 +181,7 @@ plot(varuni,main="Variaciones porcentuales de variables seleccionadas: 1993-2021
 ```
 Notemos que $\Delta{C_t}$, $\Delta{Y_t}$ y $\Delta{I_t}$ son muy similares, esto debido a la correlación que existe entre las variables. Por otro lado, $\Delta{G_t}$ y $\Delta{XN_t}$ tienen una dinámica distinta. Notemos, además, que $\Delta{XN_t}$ es una serie que decrece, pues México tiene una dinámica de déficit comercial, es decir, que en México para $t\in[2002-2021]$ se cumple que $X_t \leq M_t$, luego entonces, $XN_t\leq0$. Véase también que, en el caso de $\Delta{G_t}$ las variaciones son muy altas, es decir, es más volatil. Esto se explica porque el gasto programable varía en función de los recursos disponibles del Gobierno en cada periodo $t$ y, además, de las proyecciones que se tienen respecto al comportamiento de las variables clave que financian el $G$. Estas variables son ,*grosso modo*, el precio del petróleo y el índice de recaudación fiscal. 
 
-## d) Enfóquese ahora nada más al consumo y al producto agregado. Grafique la relación entre una serie y la otra, es decir, grafique los puntos ($\Delta{Y_t}$, $\Delta{C_t}$) poniendo el consumo en las ordenadas
+### d) Enfóquese ahora nada más al consumo y al producto agregado. Grafique la relación entre una serie y la otra, es decir, grafique los puntos ($\Delta{Y_t}$, $\Delta{C_t}$) poniendo el consumo en las ordenadas
 
 Esta variación conjunta entre $\Delta{C_t}$ y $\Delta{Y_t}$ no es clara si graficamos como la gráfica que sigue, sin embargo, nótese que esta relación es positiva, es decir, intuitivamente podemos decir que las variaciones positivas de $Y_t$ se relacionan con variaciones positivas de $C_t$.
 
@@ -205,7 +205,7 @@ Nótese que esta relación es positiva, es decir, la variación del consumo y de
 
 [^5]: Notemos que esta es la relación que esperaríamos siguiendo la macroeconomía Keynesiana. Más adelante, estableceremos formal y econométricamente esta relación, buscando calcular la propensión marginal al consumo en el modelo 1 a estimar en el inciso f. 
 
-## e) Calcule la volatilidad de las dos series. ¿Qué es más volatil, el consumo o el ingreso?
+### e) Calcule la volatilidad de las dos series. ¿Qué es más volatil, el consumo o el ingreso?
 
 Sabemos que la volatilidad de un conjunto de datos está dada por la raíz cuadrada de la varianza, es decir, por la siguiente ecuación:
 
@@ -266,7 +266,7 @@ $=$
 
 Con esto podemos dar cuenta que es el consumo el que presenta una variación ligeramente mayor y, por ende, es más volátil. Ahora, esto puede deberse a que la variación en el ingreso está *suavizada* por las variaciones de los demás componentes, incluida la variación del consumo. 
 
-## f) Estimar algunos modelos de regresión lineal:
+### f) Estimar algunos modelos de regresión lineal:
 
 Estimamos los siguientes modelos de regresión lineales:
 
@@ -429,7 +429,7 @@ La siguiente tabla muestra los resultados:
 
 Notemos que la $R^2$ ajustada es muy alta, es decir, que el logaritmo del consumo se explica completamente por el logaritmo del ingreso. Como ya mencionamos, este resultado indica que hay asociación lineal entre las variables pues la *bondad de ajuste* es cercana al 100%. Por tanto, los coeficientes calculados son no estadísticamente significativos. 
 
-## g) Explique qué se podría concluir, si fuera el caso, acerca de la Hipótesis de Ingreso Permanente para México a partir de los coeficientes encontrados
+### g) Explique qué se podría concluir, si fuera el caso, acerca de la Hipótesis de Ingreso Permanente para México a partir de los coeficientes encontrados
 
 A partir de todo el análisis hecho podemos concluir lo siguiente: i. Que la HIP no explica el comportamiento del consumo agregado en la economía mexicana para el periodo de observación. Este periodo abarca de 1993 a 2021, es decir, un periodo de 28 años. Esto implica que, a pesar de que el consumo tiene un comportamiento poco volatil y con aumentos muy cercanos a los aumentos del ingreso agregado, éste está determinado, empíricamente, por las variaciones en el ingreso. De hecho, podemos concluir que este efecto de sigue del efecto multiplicador Keynesiano debido a que el consumo depende del ingreso y éste último también del consumo, siendo el indicador importante *la propensión marginal a consumir*. 
 
