@@ -48,16 +48,66 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align=
 \begin{enumerate}
 \item[] \textit{a. What is the individual’s lifetime budget constraint?}
 \end{enumerate}
+Sabemos que el consumo máximo que pueda tener un individuo a lo largo de su vida no va a poder ser mayor al Ingreso que va a recibir a lo largo de ella (denotado por $Y(t)$), por eso podemos escribir la restricción como:
+$$
+\int_{t=0}^{T} C(t)\,dt \le \int_{t=0}^{T}Y(t)\,dt
+$$
+Ahora debemos desarrollar el lado derecho de la restricción, como el trabajador percibe dos ingresos diferentes a lo largo de su vida dependiendo si ya esta retirado podemos reescribir la integral del ingreso como:
+$$
+\Rightarrow \int_{t=0}^{R}Y(t)\,dt+\int_{t=R}^{T}Y(t)\,dt = \int_{t=0}^{R}(Y_{0}+gt)\,dt+\int_{t=R}^{T}0\,dt
+$$
+Dado que cuando el trabajador está retirado ya no acumula ingreso la segunda integral es igual a $0$, integrando obtenemos:
+$$
+\Rightarrow \int_{t=0}^{R}(Y_{0}+gt)\,dt = \left(Y_{0}t+\frac{gt^{2}}{2}\right) \Bigg\rvert_{0}^{R} = \left(Y_{0}R+\frac{gR^{2}}{2}\right) - \left(Y_{0}0+\frac{g0^{2}}{2}\right) = Y_{0}R+\frac{gR^{2}}{2}
+$$
+De tal manera que la restricción presupuestaria lo largo de su vida será:
+$$
+\Rightarrow \int_{t=0}^{T} C(t)\,dt \le Y_{0}R+\frac{gR^{2}}{2}
+$$
 
 ### Ejercicio (b)
 \begin{enumerate}
 \item[] \textit{b. What is the individual’s utility-maximizing path of consumption, $C(t)$?}
 \end{enumerate}
 
+Con lo visto en clase sabemos que los supuestos de tasa de interés $r=0$ y tasa de descuento $\rho=0$ sabemos que el modelo implica que el consumo del periodo $t$ y del periodo $t+\Delta t$ son el mismo, por lo tanto el consumo está dado por la restricción presupuestaria dividida entre todos los periodos:
+$$
+\overline{C} = \frac{1}{T}\left (Y_{0}R + \frac{gR^{2}}{2} \right)
+$$
+
 ### Ejercicio (c)
 \begin{enumerate}
 \item[] \textit{c. What is the path of the individual’s wealth as a function of $t$?}
 \end{enumerate}
+
+La riqueza (denotada por $W(t)$), está determinada por el ahorro durante el tiempo ($S(t)$), el cual depende de la diferencia entre el ingreso y el consumo a lo largo del tiempo, con lo cual tenemos que:
+$$
+W(t) = \int_{t=0}^{t}S(t)\,dt = \int_{t=0}^{t}(Y(t)-C(t))\,dt 
+$$
+Al igual que en el inciso a) podemos partir la integral en los periodoos donde el agente está empleado y donde no, quedando así:
+$$
+\Rightarrow \int_{t=0}^{t}(Y(t)-C(t))\,dt = \int_{t=0}^{R}(Y(t)-C(t))\,dt+\int_{t=R}^{t}(Y(t)-C(t))\,dt
+$$
+Podemos sustituir el valor del consumo que maximiza la utilidad esperada y el ingreso que se obtiene antes del retiro y después del retiro, teniendo así:
+$$
+\Rightarrow W(t) = \int_{t=0}^{R}\left (Y_{0} + gt-\overline{C} \right)\,dt-\int_{t=R}^{t}\overline{C}\,dt
+$$
+Resolviendo las integrales tenemos:
+$$
+\Rightarrow W(t)= \left[ Y_{0}t+\frac{gt^{2}}{2}-\overline{C}t  \Bigg\rvert_{0}^{R} \right]-\left[\overline{C}t\right \rvert_{R}^{t}]
+$$
+$$
+\Rightarrow W(t)= \left[ Y_{0}R+\frac{gR^{2}}{2}-\overline{C}R - Y_{0}0+\frac{g0^{2}}{2}+\overline{C}0 \right]-\left[\overline{C}t -\overline{C}R \right ]
+$$
+$$
+\Rightarrow W(t)= Y_{0}R+\frac{gR^{2}}{2}+\overline{C}t
+$$
+Recordando que $\overline{C} = \frac{1}{T}\left (Y_{0}R + \frac{gR^{2}}{2} \right)$ se puede reordenar de la siguiente manera:
+$$
+\Rightarrow W(t)=T\overline{C}-\overline{C}t=\overline{C}(T-t)
+$$
+Un aspecto a resaltar es que la riqueza va en aumento mientras el trabajador está empleado, es decir el ahorro es positivo de $t=0$ a $R$, mientras que se vuelve negativo de $R$ a $T$, esto se debe a que mientras que trabaja está percibiendo un ingreso y acumulandolo para consumir en su retiro.
+
 
 ## Ejercicio 8.2, Romer (5ta Edicion)
 \begin{enumerate}
@@ -67,7 +117,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align=
 De los supuestos que proporciona Milton Friedman para su Hipótesis del Ingreso Permanente se deducen los siguientes parámetros para un modelo de regresión lineal que busca explicar el consumo $C_i = a + bY_i + u_i$:
 
 $$
-\hat{b}=\frac{var(Y^P)}{var(Y^P)+var(Y^T)} \qquad \text{y} \qquad \hat{a}=(1-\hat{b})\bar{Y^P}
+\hat{b}=\frac{var(Y^P)}{var(Y^P)+var(Y^T)} \qquad \text{y} \qquad \hat{a}=(1-\hat{b})\overline{Y}^{P}
 $$
 
 en donde $Y^P$ representa el ingreso permanente, $Y^T$ el ingreso transitorio (i.e. $Y_t - \frac{1}{T}\sum{Y_t}$) y $\bar{Y^P}$ el ingreso permanente promedio. 
@@ -350,7 +400,7 @@ library(tibble)
 
 ## Cargamos el excel con las variables ya trabajadas (base=2013)
 
-variables<-read.csv("C:\\Users\\elam_\\OneDrive\\Documentos\\GitHub\\Tarea_macro_2\\variables.csv")
+variables<-read.csv("variables.csv")
 View(variables)
 ##Generamos el t.consumo:
 consumo<-variables[,1]
