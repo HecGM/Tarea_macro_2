@@ -30,7 +30,15 @@ header-includes:
 \listoftables
 
 ```{r setup,                     include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align="center", fig.pos = "H", fig.width = 7, fig.height = 3)
+knitr::opts_chunk$set(
+	echo = FALSE,
+	fig.align = "center",
+	fig.height = 3,
+	fig.pos = "H",
+	fig.width = 7,
+	message = FALSE,
+	warning = FALSE
+)
 ```
 
 \newpage
@@ -284,7 +292,7 @@ pacman::p_load(tidyverse,
                haven, readxl,
                kableExtra,
                cowplot, ggplot2, scales, viridis, latticeExtra,
-               knitr, tinytex, reshape, lubridate, scales, reshape2, seasonal)
+               knitr, tinytex, reshape, lubridate, scales, reshape2, seasonal, plm)
 
 
 set.seed(1000) #Utilizamos una semilla para poder replicar los experimentos. 
@@ -301,7 +309,7 @@ set.seed(1000) #Utilizamos una semilla para poder replicar los experimentos.
 
 Y_p <- list()
 for(i in 1:20){
-  Y_p[[i]] <- rnorm(1:100, mean=10)
+  Y_p[[i]] <- rnorm(1:100, mean=10,sd=2)
 } 
 
 df_yp <- data.frame(t(matrix(unlist(Y_p), nrow=length(Y_p), byrow=TRUE))) #I para cada individuo.
@@ -320,7 +328,7 @@ boxplot(df_yp, xlab="Personas", ylab="Ingreso permamente")
 
 Y_t <- list()
 for(i in 1:20){
-  Y_t[[i]] <- rnorm(1:100, mean=0)
+  Y_t[[i]] <- rnorm(1:100, mean=0,sd=2)
 } 
 
 df_yt <- data.frame(t(matrix(unlist(Y_t), nrow=length(Y_t), byrow=TRUE))) #I para cada individuo.
@@ -334,7 +342,7 @@ boxplot(df_yt, xlab="Personas", ylab="Ingreso transitorio")
 ### (c) 
 
 **Cree 20 vectores de 100 ingresos totales $Y_{i,t}$, sumando el ingreso transitorio y el permanente. Grafíquelos.**
-```{r,                 echo=TRUE}
+```{r,echo=FALSE}
 df_YT <- df_yp+df_yt
 boxplot(df_YT, xlab="Personas", ylab="Ingreso total")
 ```
@@ -342,17 +350,17 @@ boxplot(df_YT, xlab="Personas", ylab="Ingreso total")
 ### (d) 
 
 **Cree 20 vectores de 100 errores de medición $\epsilon_{i,t}$, distribuidos normalmente, con media 0 y varianza $\sigma^{\epsilon}>0$. Grafíquelos.**
-```{r,    echo=FALSE}
+```{r, echo=FALSE}
 e <- list()
 for(i in 1:20){
-  e[[i]] <- rnorm(1:100, mean=0)
+  e[[i]] <- rnorm(1:100, mean=0, sd=2)
 } 
 
 df_e <- data.frame(t(matrix(unlist(e), nrow=length(e), byrow=TRUE))) #I para cada individuo.
   for(i in 1:20){
     names(df_e)[i] <- paste("I", i, sep= "")
   }
-boxplot(df_e, xlab="Personas", ylab="Ingreso transitorio")
+boxplot(df_e, xlab="Personas", ylab="Errores")
 
 ```
 
@@ -360,7 +368,7 @@ boxplot(df_e, xlab="Personas", ylab="Ingreso transitorio")
 
 **Cree  20 vectores de 100 consumos $C_{i,t}$ cada uno, de acuerdo a la siguiente regla $C_{i,t}=Y_{i}^{P}+0.1Y_{i,t}^{T}+\epsilon_{i,t}$. Grafíquelos.**
 
-```{r,        echo=TRUE}
+```{r, echo=FALSE}
 df_c <- df_yp + (0.1*df_yt) + df_e
 
 boxplot(df_c, xlab="Personas", ylab="Consumo")
@@ -369,21 +377,103 @@ boxplot(df_c, xlab="Personas", ylab="Consumo")
 ### (f) 
 
 **Estime la relación lineal entre ingreso total y consumo $C_{i,t}=\alpha+\beta Y_{i,t}+\epsilon_{i,t}$. Describa el resultado de su estimación y grafíque la relación entre las observaciones del consumo y las del ingreso.**
-```{r,            echo=FALSE}
-x <- 1:20
-x <- t(as.data.frame(x))
-df_ytt <- t(df_yt)
+```{r, echo=FALSE}
+tiempo <- as.data.frame(rep((1:100),20))
+c1 <- stack(df_c)
+Y1 <- stack(df_YT)
+
+
+panel_data <- cbind.data.frame(c1,Y1,tiempo)
+panel_data <- panel_data[,-2]
+names(panel_data) <- c("C","Y","Personas","Periodo")
+LR <- plm(C~Y, data=panel_data, index= c("Personas","Periodo"), model="random")
+LR
+plot(panel_data$Y, panel_data$C, main= "Relación Consumo~Ingreso",
+   xlab="Ingreso Total", ylab="Consumo",pch=19)
+abline(lm(C~Y, data=panel_data), col="red")
 
 ```
 
 ### (g) 
 
 **Incremente la varianza del ingreso permanente, y disminuya la varianza del ingreso transitorio y vuelva a estimar y graficar la relación entre el consumo y el ingreso.**
+```{r, echo=FALSE}
+Y_p2 <- list()
+for(i in 1:20){
+  Y_p2[[i]] <- rnorm(1:100, mean=10, sd=2.5)
+} 
 
+df_yp2 <- data.frame(t(matrix(unlist(Y_p2), nrow=length(Y_p2), byrow=TRUE))) #I para cada individuo.
+  for(i in 1:20){
+    names(df_yp2)[i] <- paste("I", i, sep= "")
+  }
+
+Y_t2 <- list()
+for(i in 1:20){
+  Y_t2[[i]] <- rnorm(1:100, mean=0, sd=1.5)
+} 
+
+df_yt2 <- data.frame(t(matrix(unlist(Y_t2), nrow=length(Y_t2), byrow=TRUE))) #I para cada individuo.
+  for(i in 1:20){
+    names(df_yt2)[i] <- paste("I", i, sep= "")
+  }
+
+df_YT2 <- df_yp2+df_yt2
+
+Y2 <- stack(df_YT2)
+df_c2 <- df_yp2 + (0.1*df_yt2) + df_e
+c2 <- stack(df_c2)
+
+panel_data2 <- cbind.data.frame(c2,Y2,tiempo)
+panel_data2 <- panel_data2[,-2]
+names(panel_data2) <- c("C","Y","Personas","Periodo")
+LR2 <- plm(C~Y, data=panel_data2, index= c("Personas","Periodo"), model="random")
+LR2
+plot(panel_data2$Y, panel_data2$C, main= "Relación Consumo~Ingreso",
+   xlab="Ingreso Total", ylab="Consumo",pch=19)
+abline(lm(C~Y, data=panel_data2), col="blue")
+```
 
 ### (h) 
 
 **Disminuya la varianza del ingreso permanente, y aumente la varianza del ingreso transitorio y vuelva a estimar y graficar la relación entre el consumo y el ingreso.**
+
+```{r, echo=FALSE}
+Y_p3 <- list()
+for(i in 1:20){
+  Y_p3[[i]] <- rnorm(1:100, mean=10,sd=1.5)
+} 
+
+df_yp3 <- data.frame(t(matrix(unlist(Y_p3), nrow=length(Y_p3), byrow=TRUE))) #I para cada individuo.
+  for(i in 1:20){
+    names(df_yp3)[i] <- paste("I", i, sep= "")
+  }
+
+Y_t3 <- list()
+for(i in 1:20){
+  Y_t3[[i]] <- rnorm(1:100, mean=0,sd=2.5)
+} 
+
+df_yt3 <- data.frame(t(matrix(unlist(Y_t3), nrow=length(Y_t3), byrow=TRUE))) #I para cada individuo.
+  for(i in 1:20){
+    names(df_yt3)[i] <- paste("I", i, sep= "")
+  }
+
+df_YT3 <- df_yp3+df_yt3
+
+Y3 <- stack(df_YT3)
+df_c3 <- df_yp3 + (0.1*df_yt3) + df_e
+c3 <- stack(df_c3)
+
+panel_data3 <- cbind.data.frame(c3,Y3,tiempo)
+panel_data3 <- panel_data3[,-2]
+names(panel_data3) <- c("C","Y","Personas","Periodo")
+LR3 <- plm(C~Y, data=panel_data3, index= c("Personas","Periodo"), model="random")
+LR3
+plot(panel_data3$Y, panel_data3$C, main= "Relación Consumo~Ingreso",
+   xlab="Ingreso Total", ylab="Consumo",pch=19)
+abline(lm(C~Y, data=panel_data3), col="green")
+```
 
 ## Ejercicio 3. 
 
