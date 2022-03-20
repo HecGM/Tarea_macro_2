@@ -1018,25 +1018,202 @@ plot(xnstd,main="Exportaciones Netas, 2002-2021",sub="Fuente: Elaboración propi
 
 **Baje los datos de un año de la ENIGH del sitio del INEGI, (Cada grupo va a utilizar unos datos diferentes: Grupo 1-2020, Grupo 2-2018, Grupo 3-2016, ..., etc.)  y establezca el número de hogares y el ingreso y el gasto promedio.**
 
+La Encuesta Nacional de Ingresos y Gastos de los Hogares provee un desglose muy detallado sobre el consumo de los hogares, así como de sus ingresos y su procedencia. Esta encuesta se publica cada dos años.
+
+La tabla **CONCENTRADOGASTO** contiene las variables construidas, a partir de las tablas de la base de
+datos, que permiten tener agrupada la información con la cual se obtienen los principales tabulados que el INEGI
+construye.
+
+Dado que este trabajo es del equipo 1, se utilizarán los datos del 2020. Las principales variables que se utilizarán son las siguientes:
+
+1) Folio de la vivienda: **folioviv**
+2) Folio del hogar: **foliohog**
+3) Ubicación geográfica: **ubica_geo**
+5) Ingreso corriente del hogar: **ing_cor**
+6) Gasto corriente monetario: **gasto_mon**
+
+```{r echo=FALSE}
+#Descarga de datos del INEGI
+concgast <- read.csv("conjunto_de_datos2020/conjunto_de_datos/conjunto_de_datos_concentradohogar_enigh_2020_ns.csv", sep = ",")
+
+
+knitr::kable(
+  head(select(concgast, folioviv, foliohog, ubica_geo,ing_cor,gasto_mon), 10), booktabs = TRUE, align = "c",format = 'latex', digits = 2,
+  caption = "Algunas variables de la ENIGH"
+)%>%
+  kable_styling(latex_options = "HOLD_position")
+
+```
+
 
 ### (b) 
 
 **Estime una relación entre ingreso y gasto y reporte sus resultados.**
 
+Se estandarizaron las observaciones del ingreso y el gasto (que representa el consumo) para no trabajar con datos de valores tan altos. Considerando todas las observaciones, se obtuvo un parámetro de 0.292, el cual implica que cuando el ingreso aumenta en 10 unidades monetarias, el gasto en consumo aumentará en casi 3 pesos. Este resultado se acompaña de una gráfica en la que se representa al consumo (gasto) en función del ingreso.
+
+```{r echo=F, fig.pos='H', fig.cap="Consumo vs Ingreso (2020)"}
+
+#Definimos las variables como objetos para poder trabajar con ellas.
+
+ingr <- concgast$ing_cor
+gasmon <- concgast$gasto_mon
+
+# Vamos a estandarizar las observaciones poder estimar de mejor manera la relación que hay entre estas variables
+
+ingr_idx <- ingr/mean(ingr)*100
+gasmon_idx <- gasmon/mean(gasmon)*100
+
+#Calculamos la regresión
+
+relacion <- lm(gasmon_idx~ingr_idx)
+
+regtab <- data.frame(col2 = c(70.797,0.292), col2 = c(0.3213,0.00179),
+                     row.names = c("Intercepto", "Pendiente"))
+names(regtab) <- c("Parámetro", "Error estándar")
+
+########
+
+knitr::kable(regtab,booktabs = TRUE, format = 'latex', caption = "Regresión Lineal: Consumo - Ingreso", longtable = F
+             )%>% kable_styling(latex_options = "HOLD_position")
+
+
+########
+
+figr <- ggplot(relacion,aes(x=log(ingr_idx),y=log(gasmon_idx))) + geom_point(color = "chartreuse4", alpha=0.5) + 
+  labs(title = "Ingreso vs Consumo (2020)", x="Ingreso (Logaritmo)",y='Consumo (Logaritmo)', 
+      colour = " ") + theme_bw() + geom_smooth(method = lm, color="darkblue", alpha=0.3) 
+
+plot(figr)
+```
 
 ### (c) 
 
 **Estime una relación entre ingreso y gasto pero para hogares unipersonales de edad entre 30 y 40 años de edad de la Ciudad de México.**
+
+Se filtró la base de datos para considerar a los capitalinos entre 30 y 40 años. Notamos que ahora, la pendiente es de 0.9409, es decir, ¡hay una relación de casi 1 a 1 entre el ingreso y el gasto que se destina al consumo! 
+
+La siguiente tabla resume la regresión y se acompaña con su respectiva gráfica.
+
+```{r echo=F, fig.pos='H', fig.cap="Ingreso y Consumo de los chilangos (30-40 años)"}
+#Vamos a filtrar la información de la base de datos
+
+cdmx <- filter(concgast, ubica_geo == 1009, edad_jefe >= 30 & edad_jefe <= 40) 
+
+cdmxg <- as.matrix(cdmx$gasto_mon)
+
+cdmxy <- as.matrix(cdmx$ing_cor)
+
+
+cg_ind <- cdmxg/mean(cdmxg)*100
+cy_ind <- cdmxy/mean(cdmxy)*100
+
+relacioncdmx <- lm(cg_ind~cy_ind)
+
+########
+
+regcdmx <- data.frame(col1 = c(5.90,0.9409), col2 = c(32.86,0.0133),
+                     row.names = c("Intercepto", "Pendiente"))
+
+names(regcdmx) <- c("Parámetro", "Error estándar")
+
+knitr::kable(regtab,booktabs = TRUE, format = 'latex', caption = "Regresión Lineal: Consumo - Ingreso", longtable = F
+             )%>% kable_styling(latex_options = "HOLD_position")
+
+
+########
+
+figcdmx <- ggplot(relacioncdmx,aes(x=cg_ind,y=cy_ind)) + geom_point(color = "red", alpha=0.7) + 
+  labs(title = "Ingreso vs Consumo para \nchilangos entre 30 y 40 años", x="Ingreso ",y='Consumo') + theme_bw() + geom_smooth(method = lm, color="dodgerblue4", alpha=0.1) 
+
+plot(figcdmx)
+
+```
 
 
 ### (d) 
 
 **Para todos los hogares unipersonales, estime el valor promedio del ingreso por edad, separando la muestra en grupos de edad de cinco años cada uno y grafíquelo.**
 
+```{r echo=F}
+
+#Definimos las variables como objetos para poder trabajar con ellas.
+
+gr1 <- filter(concgast, edad_jefe >= 14 & edad_jefe <= 19)
+m1 <- mean(gr1$ing_cor)
+
+gr2 <- filter(concgast, edad_jefe >= 20 & edad_jefe <= 25)
+m2 <- mean(gr2$ing_cor)
+
+gr3 <- filter(concgast, edad_jefe >= 26 & edad_jefe <= 31)
+m3 <- mean(gr3$ing_cor)
+
+gr4 <- filter(concgast, edad_jefe >= 32 & edad_jefe <= 37)
+m4 <- mean(gr4$ing_cor)
+
+gr5 <- filter(concgast, edad_jefe >= 38 & edad_jefe <= 43)
+m5 <- mean(gr5$ing_cor)
+
+gr6 <- filter(concgast, edad_jefe >= 44 & edad_jefe <= 49)
+m6 <- mean(gr6$ing_cor)
+
+gr7 <- filter(concgast, edad_jefe >= 50 & edad_jefe <= 55)
+m7 <- mean(gr7$ing_cor)
+
+gr8 <- filter(concgast, edad_jefe >= 56 & edad_jefe <= 61)
+m8 <- mean(gr8$ing_cor)
+
+gr9 <- filter(concgast, edad_jefe >= 62 & edad_jefe <= 67)
+m9 <- mean(gr9$ing_cor)
+
+gr10 <- filter(concgast, edad_jefe >= 68 & edad_jefe <= 73)
+m10 <- mean(gr10$ing_cor)
+
+gr11 <- filter(concgast, edad_jefe >= 74 & edad_jefe <= 79)
+m11 <- mean(gr11$ing_cor)
+
+gr12 <- filter(concgast, edad_jefe >= 80 & edad_jefe <= 85)
+m12 <- mean(gr12$ing_cor)
+
+gr13 <- filter(concgast, edad_jefe >= 86 & edad_jefe <= 91)
+m13 <- mean(gr13$ing_cor)
+```
+
+En la siguiente tabla se muestran los grupos por edades y el ingreso promedio por cada grupo. 
+
+```{r echo=FALSE}
+grupos <- data.frame(grup = c("14-19","20-25","26-31","32-37","38-43","44-49",
+                    "50-55","56-61","62-67","68-73","74-79","80-85","86-91"),
+                     colm=c(m1,m2,m3,m4,m5,m6,m7,m8,m9,m10,m11,m12,m13))
+
+grup <- grupos[,1]
+colm <- grupos[,2]
+########
+
+names(grupos) <- c("Edad por grupos","Ingreso promedio")
+knitr::kable(grupos,booktabs = TRUE, align = "c", format = 'latex', caption = "Ingreso promedio por grupos de edades (2020)", longtable = F
+             )%>% kable_styling(latex_options = "HOLD_position")
+```
+
+Al graficar estos resultados:
+
+```{r echo=F, fig.cap="Ingreso Promedio por Grupos de Edad (2020)", fig.pos='H'}
+
+figre <- ggplot(grupos,aes(x=grup,y=colm)) + geom_point(color = "darkblue") + 
+  labs(title = "Ingreso Promedio por Grupos de Edad (2020)", x="Edad",y='Ingreso Promedio', 
+      colour = " ") + theme_bw()
+
+plot(figre)
+```
+De la figura, se observa que, en promedio, el grupo con mayores ingresos consta de aquellas personas entre 56 y 61 años. Esto nos recuerda a lo observado en la tarea sobre mercados laborales, en los que el mayor salario se asociaba con la etapa más productiva de la vida.
 
 ### (e) 
 
-**Interprete sus resultados a la luz de la HIP y comparados con los resultados para las variablea agregadas.**
+**Interprete sus resultados a la luz de la HIP y comparados con los resultados para las variables agregadas.**
+
+Un resultado importante de la Hipótesis del Ingreso Permanente es que el parámetro estimado para la pendiente de la relación entre consumo e ingreso, ($\hat{b}$), será mayor en tanto las variaciones del ingreso transitorio sean menores (Ver ejercicio 8.2 de los teóricos). Podemos entonces inferir que, en México, hay un fuerte componente de variación en el ingreso transitorio (tenemos una $\hat{b}$ baja para el inciso (a)). Por otra parte, cuando acotamos nuestras observaciones, encontramos un mayor parámetro para los capitalinos entre 30 y 40 años. Esto nos lleva a pensar que el ingreso transitorio varía relativamente poco para este grupo de personas.
+
+
 
 
 ## Ejercicio 5
