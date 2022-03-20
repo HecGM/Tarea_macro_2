@@ -268,23 +268,85 @@ Con estos resultados puede concluirse que un aumento (infinitesimal) de la tasa 
 
 ## Ejercicio 8.6, Romer (5ta Edicion)
 \begin{enumerate}
-\item[] \textbf{8.6} A framework for investigating excess smoothness. Suppose that $C_{t}$ equals $ \left( \frac{r}{1 + r} \right) \left (A_{t} + \sum_{s=0}^{\infty} \frac {\mathbb{E}[Y_{t+s}]}{(1+r)^{s}} \right)$.
+\item[] \textbf{8.6} A framework for investigating excess smoothness. Suppose that $C_{t}= \left( \frac{r}{1 + r} \right) \left (A_{t} + \sum_{s=0}^{\infty} \frac {\mathbb{E}[Y_{t+s}]}{(1+r)^{s}} \right)$.
 \end{enumerate}
 
 ### Ejercicio (a)
 \begin{enumerate}
-\item[] \textit{a. Show that these assumptions imply that $\mathbb{E}_{t}[C_{t +1}]=C_{t}$ (and thus that consumption follows a random walk) and that $ \sum_{s=0}^{\infty}\frac {\mathbb{E}[C_{t+s}]}{(1+r)^{s}}=A_{t} + \sum_{s=0}^{\infty} \frac {\mathbb{E}[Y_{t+s}]}{(1+r)^{s}}$.}
+\item[] \textit{a. Show that these assumptions imply that $\mathbb{E}_{t}[C_{t +1}]=C_{t}$ (and thus that consumption follows a random walk) and that $ \sum_{s=0}^{\infty}\frac {\mathbb{E}_{t}[C_{t+s}]}{(1+r)^{s}}=A_{t} + \sum_{s=0}^{\infty} \frac {\mathbb{E}_{t}[Y_{t+s}]}{(1+r)^{s}}$.}
 \end{enumerate}
+Sustituimos $C_{t}$ la expresión para $A_{t+1}$
+$$
+A_{t+1}=(1+r)(A_{t}+Y_{t}-C_{t})=(1+r)\left (A_{t}+Y_{t}-\left( \frac{r}{1 + r} \right) \left (A_{t} + \sum_{s=0}^{\infty} \frac {\mathbb{E}_{t}[Y_{t+s}]}{(1+r)^{s}} \right)\right)
+$$
+$$
+\Rightarrow A_{t+1}= A_{t}+Y_{t}-r\left (\sum_{s=1}^{\infty} \frac {\mathbb{E}_{t}[Y_{t+s}]}{(1+r)^{s}} \right)
+$$
+
+Dado que $C_{t+1}$ depende de $A_{t+1}$
+$$
+C_{t+1}=\left(\frac{r}{1+r}\right)\left(A_{t+1}+\sum_{s=0}^{\infty}\frac{\mathbb{E}_{t+1}[Y_{t+1+s}]}{(1+r)^s} \right)=\left( \frac{r}{1+r}\right)\left(A_{t}+Y_{t}-r\left( \sum_{s=1}^{\infty} \frac{\mathbb{E}_{t}[Y_{t+s}]}{(1+r)^{s}}\right)+\sum_{s=0}^{\infty}\frac{\mathbb{E}_{t+1}[Y_{t+1+s}]}{(1+r)^{s}} \right)
+$$
+Aplicando el valor esperado en tiempo t $\mathbb{E}_{t}$ de ambos lados de la ecuación y por propiedades de esperanza:
+$$
+\mathbb{E}_{t}[C_{t+1}]=\left( \frac{r}{1+r}\right)\left(A_{t}+Y_{t}-r\left( \sum_{s=1}^{\infty} \frac{\mathbb{E}_{t}[Y_{t+s}]}{(1+r)^{s}}\right)+\sum_{s=1}^{\infty}\frac{\mathbb{E}_{t}[Y_{t+s}]}{(1+r)^{s}}-Y_{t} \right)
+$$
+$$
+\Rightarrow \mathbb{E}_{t}[C_{t+1}]=\left(\frac{r}{1+r}\right)\left(A_{t}+\sum_{s=0}^{\infty}\frac{\mathbb{E}_{t}[Y_{t+s}]}{(1+r)^{s}} \right)
+$$
+Se comprueba que $\mathbb{E}_{t}[C_{t+1}]=C_t$, el consumo sigue una caminata aleatoria, los cambios de consumo dependen de cambios inesperados. De tal manera, el mejor estimador para $C_{t+s}$ es $C_{t}$, para cualquier valor $s \ge 0$. Podemos verlo como: $\mathbb{E}_{t}[C_{t+s}]=C_{t}$. Pasamos a obtener el valor presente del consumo esperado:
+$$
+\sum_{s=0}^{\infty}\frac{\mathbb{E}_{t}[C_{t+s}]}{(1+r)^{s}}=\sum_{s=0}^{\infty}\frac{C_{t}}{(1+r)^{s}}=C_{t}\sum_{s=0}^{\infty}\frac{1}{(1+r)^{s}}=C_{t}\left(\frac{1+r}{r} \right)
+$$
+Dado que $\sum_{s=0}^{\infty}\frac{1}{(1+r)^{s}}\rightarrow \frac{1+r}{r}$, sustituyendo el valor de $c_{t}$ obtenemos:
+$$
+\sum_{s=0}^{\infty}\frac{\mathbb{E}_{t}[C_{t+s}]}{(1+r)^{s}}=\left( \frac{1+r}{r}\right)\left(\frac{r}{1+r} \right)\left(A_{t}+\sum_{s=0}^{\infty}\frac{\mathbb{E}_{t}[Y_{t+s}]}{(1+r)^{s}} \right)
+$$
+$$
+\Rightarrow \sum_{s=0}^{\infty}\frac{\mathbb{E}_{t}[C_{t+s}]}{(1+r)^{s}}=A_{t}+\sum_{s=0}^{\infty}\frac{\mathbb{E}_{t}[Y_{t+s}]}{(1+r)^{s}}
+$$
 
 ### Ejercicio (b)
 \begin{enumerate}
 \item[] \textit{b. Suppose that $\Delta Y_{t} = \phi \Delta Y_{t-1}+u_{t}$, where $u$ is white noise. Suppose that $Y_{t}$ exceeds $\mathbb{E}_{t-1}[Y_{t}]$ by $1$ unit (that is, suppose $u_{t} = 1$). By how much does consumption increase?}
 \end{enumerate}
+Partimos tomando el valor esperado de $t-1$ de $C_{t}$:
+$$
+\mathbb{E}_{t-1}[C_{t}]=\left(\frac{r}{1+r}  \right) \left( A_{t} + \sum_{s=0}^{\infty}\frac{\mathbb{E}_{t-1}[Y_{t+s}]}{(1+r)^{s}} \right)       
+$$
+Restando $c_{t}$ con $\mathbb{E}_{t-1}[C_{t}]$:
+$$
+C_{t}-\mathbb{E}_{t-1}[C_{t}]= \left(\frac{r}{1+r}\right)\left(A_{t}+\sum_{s=0}^{\infty}\frac{\mathbb{E}_{t}[Y_{t+s}]}{(1+r)^{s}}\right)-\left(\frac{r}{1+r}\right)\left(A_{t}+\sum_{s=0}^{\infty}\frac{\mathbb{E}_{t-1}[Y_{t+s}]}{(1+r)^{s}} \right)
+$$
+$$
+\Rightarrow C_{t}-\mathbb{E}_{t-1}[C_{t}]=\left(\frac{r}{1+r}\right)\left(\sum_{s=0}^{\infty}\frac{\mathbb{E}_{t}[Y_{t+s}]-\mathbb{E}_{t-1}[Y_{t+s}]}{(1+r)^{s}} \right)
+$$
+$$
+\Rightarrow \sum_{s=0}^{\infty}\frac{\mathbb{E}_{t}[Y_{t+s}]-\mathbb{E}_{t-1}[Y_{t+s}]}{(1+r)^{s}}=1+\frac{1+\phi}{1+r}+\frac{1+\phi+\phi^{2}}{(1+r)^{2}}+\frac{1+\phi+\phi^{2}+\phi^{3}}{(1+r)^{3}}+...
+$$
+$$
+\Rightarrow \sum_{s=0}^{\infty}\frac{\mathbb{E}_{t}[Y_{t+s}]-\mathbb{E}_{t-1}[Y_{t+s}]}{(1+r)^{s}}=\frac{1}{(1-\gamma)(1-\gamma\phi)}
+$$
+Donde $\gamma=\frac{1}{(1+r)}$, de tal manera que:
+$$
+\frac{1}{(1-\gamma)(1-\gamma\phi)}=\frac{(1+r)^{2}}{r(1+r-\phi)}
+$$
+Por lo tanto tenemos que:
+$$
+C_{t}-\mathbb{E}_{t-1}[C_{t}]=\left(\frac{r}{1+r}\right)\left(\frac{(1+r)^{2}}{r(1+r-\phi)}\right)= \frac{1+r}{1+r-\phi}
+$$
 
 ### Ejercicio (c)
 \begin{enumerate}
 \item[] \textit{c. For the case of $\phi>0$, which has a larger variance, the innovation in income, $u_{t}$, or the innovation in consumption, $C_{t} - \mathbb{E}_{t-1}[C_{t}]$? Do consumers use saving and borrowing to smooth the path of consumption relative to income in this model? Explain.}
 \end{enumerate}
+$$
+Var(C_{t}-\mathbb{E}_{t-1}[C_{t}])=Var\left(\frac{(1+r)u_{t}}{1+r-\phi}\right)=\left(\frac{1+r}{1+r-\phi}\right)^{2}Var(u_{t}) > Var(u_{t})
+$$
+Dado que $\left(\frac{1+r}{1+r-\phi}\right)>1$, la varianza del incremento del consumo es mayor a la varianza del incremento del ingreso. 
+No podemos concluir nada sobre la forma que los agentes suaviazan el consumo con ahorro y crédito solo con este modelo.
+
+ 
 
 ```{r}
 pacman::p_load(tidyverse,
@@ -292,7 +354,10 @@ pacman::p_load(tidyverse,
                haven, readxl,
                kableExtra,
                cowplot, ggplot2, scales, viridis, latticeExtra,
-               knitr, tinytex, reshape, lubridate, scales, reshape2, seasonal, plm)
+               knitr, tinytex, reshape, lubridate, scales, reshape2, seasonal, plm, latex2exp, tibble)
+
+
+
 
 
 set.seed(1000) #Utilizamos una semilla para poder replicar los experimentos. 
@@ -305,7 +370,7 @@ set.seed(1000) #Utilizamos una semilla para poder replicar los experimentos.
 
 **Cree un vector de 20 ingresos permanentes aleatorios $Y_i^P$, distribuidos normalmente, con media 10 y varianza $\sigma^{P}$. Cree 20 vectores (cada uno de estos vectores representa una persona) cada uno con 100 observaciones idénticas del ingreso permanente. Grafíquelos (eje x, persona; eje y, ingreso permanente).**
 
-```{r,   echo=FALSE}
+```{r,   echo=FALSE,  fig.cap= "Ingreso Permanente durante 100 periodos", fig.pos='H'}
 
 Y_p <- list()
 for(i in 1:20){
@@ -317,14 +382,14 @@ df_yp <- data.frame(t(matrix(unlist(Y_p), nrow=length(Y_p), byrow=TRUE))) #I par
     names(df_yp)[i] <- paste("I", i, sep= "")
   }
 
-boxplot(df_yp, xlab="Personas", ylab="Ingreso permamente")
 
+boxplot(df_yp,title="Ingreso Permanente durante 100 periodos" ,xlab="Personas", ylab="Ingreso permamente",col=rgb(.4, .2, .6, alpha = 0.4))
 ```
 ### (b) 
 
 **Cree 20 vectores de 100 ingresos transitorios aleatorios $Y_{i,t}^{T}$, distribuidos normalmente, con media 0 y con varianza $\sigma^{T}$. Grafíquelos.**
 
-```{r,       echo=FALSE}
+```{r, echo=FALSE, fig.cap= "Ingreso Transitorio durante 100 periodos", fig.pos='H'}
 
 Y_t <- list()
 for(i in 1:20){
@@ -335,22 +400,24 @@ df_yt <- data.frame(t(matrix(unlist(Y_t), nrow=length(Y_t), byrow=TRUE))) #I par
   for(i in 1:20){
     names(df_yt)[i] <- paste("I", i, sep= "")
   }
-boxplot(df_yt, xlab="Personas", ylab="Ingreso transitorio")
+
+boxplot(df_yt,title="Ingreso Transitorio durante 100 periodos", xlab="Personas", ylab="Ingreso transitorio", col=rgb(1, .6, .2, alpha = 0.4))
 
 ```
 
 ### (c) 
 
 **Cree 20 vectores de 100 ingresos totales $Y_{i,t}$, sumando el ingreso transitorio y el permanente. Grafíquelos.**
-```{r,echo=FALSE}
+```{r,echo=FALSE, fig.cap= "Ingreso Total durante 100 periodos", fig.pos='H'}
 df_YT <- df_yp+df_yt
-boxplot(df_YT, xlab="Personas", ylab="Ingreso total")
+
+boxplot(df_YT,title="Ingreso Total en 100 periodos", xlab="Personas", ylab="Ingreso total", col=rgb(.2, 1, .2, alpha = 0.4))
 ```
 
 ### (d) 
 
 **Cree 20 vectores de 100 errores de medición $\epsilon_{i,t}$, distribuidos normalmente, con media 0 y varianza $\sigma^{\epsilon}>0$. Grafíquelos.**
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap= "Error de medición durante 100 periodos", fig.pos='H'}
 e <- list()
 for(i in 1:20){
   e[[i]] <- rnorm(1:100, mean=0, sd=2)
@@ -360,7 +427,8 @@ df_e <- data.frame(t(matrix(unlist(e), nrow=length(e), byrow=TRUE))) #I para cad
   for(i in 1:20){
     names(df_e)[i] <- paste("I", i, sep= "")
   }
-boxplot(df_e, xlab="Personas", ylab="Errores")
+
+boxplot(df_e,title="Error de medición en 100 periodos" , xlab="Personas", ylab="Errores", col=rgb(0, .2, 1, alpha = 0.4))
 
 ```
 
@@ -368,16 +436,16 @@ boxplot(df_e, xlab="Personas", ylab="Errores")
 
 **Cree  20 vectores de 100 consumos $C_{i,t}$ cada uno, de acuerdo a la siguiente regla $C_{i,t}=Y_{i}^{P}+0.1Y_{i,t}^{T}+\epsilon_{i,t}$. Grafíquelos.**
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap= "Consumo durante 100 periodos", fig.pos='H'}
 df_c <- df_yp + (0.1*df_yt) + df_e
 
-boxplot(df_c, xlab="Personas", ylab="Consumo")
+boxplot(df_c,title="Consumo durante 100 periodos", xlab="Personas", ylab="Consumo", col=rgb(1, 0, 0, alpha = 0.4))
 
 ```
 ### (f) 
 
 **Estime la relación lineal entre ingreso total y consumo $C_{i,t}=\alpha+\beta Y_{i,t}+\epsilon_{i,t}$. Describa el resultado de su estimación y grafíque la relación entre las observaciones del consumo y las del ingreso.**
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap= "Relación Consumo~Ingreso 1", fig.pos='H'}
 tiempo <- as.data.frame(rep((1:100),20))
 c1 <- stack(df_c)
 Y1 <- stack(df_YT)
@@ -387,17 +455,22 @@ panel_data <- cbind.data.frame(c1,Y1,tiempo)
 panel_data <- panel_data[,-2]
 names(panel_data) <- c("C","Y","Personas","Periodo")
 LR <- plm(C~Y, data=panel_data, index= c("Personas","Periodo"), model="random")
-LR
-plot(panel_data$Y, panel_data$C, main= "Relación Consumo~Ingreso",
-   xlab="Ingreso Total", ylab="Consumo",pch=19)
-abline(lm(C~Y, data=panel_data), col="red")
+LRG1 <- ggplot(panel_data,aes(x=Y,y=C)) + geom_point(color = "brown4", alpha=0.5) + 
+  labs(title = TeX(r'(Relación Consumo~Ingreso($Var(Y^{P})=Var(Y^{T})$))'), x="Ingreso",y='Consumo', 
+      colour = " ") + theme_bw() + geom_smooth(method = lm, color="darkcyan", alpha=0.3)
+LRG1
+LRtable <- data.frame(col1 = c(4.16373,0.58151),
+                     row.names = c("Intercepto", "Pendiente"))
+names(LRtable) <- c("Parámetro")
+knitr::kable(LRtable,booktabs = TRUE, format = 'latex', caption = "Primera Regresión Consumo~Ingreso", longtable = F
+             )%>% kable_styling(latex_options = "HOLD_position")
 
 ```
 
 ### (g) 
 
 **Incremente la varianza del ingreso permanente, y disminuya la varianza del ingreso transitorio y vuelva a estimar y graficar la relación entre el consumo y el ingreso.**
-```{r, echo=FALSE}
+```{r, echo=FALSE,fig.cap= "Relación Consumo~Ingreso 2", fig.pos='H' }
 Y_p2 <- list()
 for(i in 1:20){
   Y_p2[[i]] <- rnorm(1:100, mean=10, sd=2.5)
@@ -428,17 +501,22 @@ panel_data2 <- cbind.data.frame(c2,Y2,tiempo)
 panel_data2 <- panel_data2[,-2]
 names(panel_data2) <- c("C","Y","Personas","Periodo")
 LR2 <- plm(C~Y, data=panel_data2, index= c("Personas","Periodo"), model="random")
-LR2
-plot(panel_data2$Y, panel_data2$C, main= "Relación Consumo~Ingreso",
-   xlab="Ingreso Total", ylab="Consumo",pch=19)
-abline(lm(C~Y, data=panel_data2), col="blue")
+LRG2 <- ggplot(panel_data2,aes(x=Y,y=C)) + geom_point(color = "cadetblue4", alpha=0.5) + 
+  labs(title = TeX(r'(Relación Consumo~Ingreso($Var(Y^{P})>Var(Y^{T})$))'), x="Ingreso",y='Consumo', 
+      colour = " ") + theme_bw() + geom_smooth(method = lm, color="darkgoldenrod1", alpha=0.3)
+LRG2
+LRtable2 <- data.frame(col1 = c(2.28750,0.77132),
+                     row.names = c("Intercepto", "Pendiente"))
+names(LRtable2) <- c("Parámetro")
+knitr::kable(LRtable2,booktabs = TRUE, format = 'latex', caption = "Segunda Regresión Consumo~Ingreso", longtable = F
+             )%>% kable_styling(latex_options = "HOLD_position")
 ```
 
 ### (h) 
 
 **Disminuya la varianza del ingreso permanente, y aumente la varianza del ingreso transitorio y vuelva a estimar y graficar la relación entre el consumo y el ingreso.**
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap= "Relación Consumo~Ingreso 3", fig.pos='H'}
 Y_p3 <- list()
 for(i in 1:20){
   Y_p3[[i]] <- rnorm(1:100, mean=10,sd=1.5)
@@ -469,27 +547,23 @@ panel_data3 <- cbind.data.frame(c3,Y3,tiempo)
 panel_data3 <- panel_data3[,-2]
 names(panel_data3) <- c("C","Y","Personas","Periodo")
 LR3 <- plm(C~Y, data=panel_data3, index= c("Personas","Periodo"), model="random")
-LR3
-plot(panel_data3$Y, panel_data3$C, main= "Relación Consumo~Ingreso",
-   xlab="Ingreso Total", ylab="Consumo",pch=19)
-abline(lm(C~Y, data=panel_data3), col="green")
+LRG3 <- ggplot(panel_data3,aes(x=Y,y=C)) + geom_point(color = "aquamarine3", alpha=0.5) + 
+  labs(title = TeX(r'(Relación Consumo~Ingreso($Var(Y^{P})<Var(Y^{T})$))'), x="Ingreso",y='Consumo', 
+      colour = " ") + theme_bw() + geom_smooth(method = lm, color="darkmagenta", alpha=0.3)
+LRG3
+LRtable3 <- data.frame(col1 = c(6.70659,0.32859),
+                     row.names = c("Intercepto", "Pendiente"))
+names(LRtable3) <- c("Parámetro")
+knitr::kable(LRtable3,booktabs = TRUE, format = 'latex', caption = "Tercera Regresión Consumo~Ingreso", longtable = F
+             )%>% kable_styling(latex_options = "HOLD_position")
 ```
 
 ## Ejercicio 3. 
 
 **Estudie el consumo agregado en México siguiendo estos pasos:**
 
-```{r set,                                 include=FALSE}
+```{r set, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-## Cargamos la paquetería que se necesita:
-library(readxl)
-library(tidyverse)
-library(lubridate)
-library(ggplot2)
-library(dplyr)
-library(seasonal)
-library(tibble)
-
 ## Cargamos el excel con las variables ya trabajadas (base=2013)
 
 variables<-read.csv("variables.csv")
