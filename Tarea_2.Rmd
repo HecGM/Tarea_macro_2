@@ -464,8 +464,8 @@ LRtable <- data.frame(col1 = c(4.16373,0.58151),
 names(LRtable) <- c("Parámetro")
 knitr::kable(LRtable,booktabs = TRUE, format = 'latex', caption = "Primera Regresión Consumo~Ingreso", longtable = F
              )%>% kable_styling(latex_options = "HOLD_position")
-
 ```
+Lo primero que debemos notar es que en una regresión lineal $\hat{\beta}=\frac{Cov(Y_{i,t},C_{i,t})}{Var(Y_{i,t})}=\frac{1}{1+\frac{Var(Y_{i}^{T})}{Var(Y_{i}^{P})}}$. De tala manera que si consideramos el valor de 2 para la desviación estándar ($sd^{2}=Var$) para ambas variables obtenemos que $\hat{\beta}=\frac{1}{2}$, lo cual es muy cercano a lo que obtuvimos con la regresión lineal con datos panel, esto quiere decir que las variaciones del Ingreso Total provienen en la misma medida a variaciones en el Ingreso permanente y el Ingreso Transitorio, con lo cual un aumento de una unidad de Ingreso Total lleva a un aumento de .5 unidades el consumo. 
 
 ### (g) 
 
@@ -511,7 +511,7 @@ names(LRtable2) <- c("Parámetro")
 knitr::kable(LRtable2,booktabs = TRUE, format = 'latex', caption = "Segunda Regresión Consumo~Ingreso", longtable = F
              )%>% kable_styling(latex_options = "HOLD_position")
 ```
-
+Retomamos el la formaula del inciso anterior $\hat{\beta}=\frac{1}{1+\frac{Var(Y_{i}^{T})}{Var(Y_{i}^{P})}}$, nos arroja un valor de $\hat{\beta}\approx.73$, lo cual de nuevo concuerda con nuestros resultados de la regresión estimada. Esto quiere decir que un aumento del Ingreso Total es más probable de ser de un aumento del Ingreso Permanente, un aumento de una unidad de Ingreso Total lleva a un aumento de .77 (valor de $\hat{\beta}$ de la regresión) unidades de Consumo.
 ### (h) 
 
 **Disminuya la varianza del ingreso permanente, y aumente la varianza del ingreso transitorio y vuelva a estimar y graficar la relación entre el consumo y el ingreso.**
@@ -557,6 +557,7 @@ names(LRtable3) <- c("Parámetro")
 knitr::kable(LRtable3,booktabs = TRUE, format = 'latex', caption = "Tercera Regresión Consumo~Ingreso", longtable = F
              )%>% kable_styling(latex_options = "HOLD_position")
 ```
+Hacemos lo mismo que en el inciso anterior y obtenemos $\hat{\beta}\approx.26$, es decir, es más probable que una variación del Ingreso Total provenga de un aumento en el Ingreso Transitorio, esto lleva a que un incremento de una unidad de Ingreso Total solo produzca un aumento de .32 unidades de Consumo.
 
 ## Ejercicio 3. 
 
