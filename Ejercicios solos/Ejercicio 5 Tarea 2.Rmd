@@ -1,0 +1,318 @@
+---
+title: "Ejercicio 5"
+author: "Benjamín Elam Rodríguez Alcaraz"
+date: "3/19/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+##Ejercicio 7
+
+## Cargamos la paquetería que se necesita:
+library(readxl)
+library(tidyverse)
+library(lubridate)
+library(ggplot2)
+library(dplyr)
+library(seasonal)
+library(tibble)
+
+## Cargamos el excel con los datos
+ejercicio5<-read.csv("C:\\Users\\elam_\\OneDrive - El Colegio de México A.C\\Maestría en Economía - 2021-2023\\Maestría en Economía - Colmex\\Segundo Semestre Maestría\\Macroeconomía\\Tareas\\Tarea 2\\Series\\Ejercicio 5 Tasas.csv")
+View(ejercicio5)
+
+## 
+
+
+```
+
+
+## Ejercicio 5
+**5. Estudie el ``acertijo del premio al riesgo'' para el caso de México siguiendo estos pasos:**
+
+
+### (a) 
+
+**Consiga los valores anuales de IPC, el Indice de Precios y Cotizaciones de la Bolsa Mexicana de Valores por lo menos desde 1990.**
+
+El índice de Precios y Cotizaciones (en adelante "IPC") es el principal indicador de la evolución del mercado accionario en México. Lo que mide este índice es el rendimiento de las acciones de mayor tamaño y liquidez de empresas que cotizan en la Bolsa Mexicana de Valores. 
+
+| *Tiempo* 	| *IPC*      	| *Tiempo*    	| *IPC*      	|
+|:------:	|----------	|------	|----------	|
+| 1990   	| 570.14   	| 2006 	| 21074.75 	|
+| 1991   	| 1086.08  	| 2007 	| 29713.72 	|
+| 1992   	| 1671.61  	| 2008 	| 26859.9  	|
+| 1993   	| 1856.24  	| 2009 	| 25306.03 	|
+| 1994   	| 2520.65  	| 2010 	| 33285.89 	|
+| 1995   	| 2219.36  	| 2011 	| 36340.53 	|
+| 1996   	| 3163.18  	| 2012 	| 40037.19 	|
+| 1997   	| 4442.42  	| 2013 	| 42060.97 	|
+| 1998   	| 4241.03  	| 2014 	| 42644.21 	|
+| 1999   	| 5332.09  	| 2015 	| 43770.96 	|
+| 2000   	| 6515.86  	| 2016 	| 45901.91 	|
+| 2001   	| 6119.71  	| 2017 	| 48995.62 	|
+| 2002   	| 6517.99  	| 2018 	| 46730.69 	|
+| 2003   	| 7186.92  	| 2019 	| 43066.34 	|
+| 2004   	| 10677.26 	| 2020 	| 38704.09 	|
+| 2005   	| 14458.61 	| 2021 	| 49487.49 	|
+
+
+### (b) 
+
+**Calcule su tasa de retorno nominal para cada año.**
+
+La tasa de retorno nominal $r^{ipc}$ para cada año está dada por la siguiente ecuación:
+
+$r_t^{ipc}=(V_{t}-V_{t-1} / V_{t-1})*100$
+
+Donde $V_t$ es el valor en $t$ mientras que $V_{t-1}$ es el valor en el periodo anterior. Notemos que la variación para el índice es el rendimiento y que ésta es muy volátil debido a la naturaleza de la bolsa de valores. Nótese, además, que la tendencia es creciente. 
+
+| **Tiempo** 	| **r_t^{ipc}** 	| **Tiempo** 	| **r_t^{ipc}** 	|
+|:----------:	|:-------------:	|:----------:	|:-------------:	|
+| 1990       	| -             	| 2006       	| 45.76%        	|
+| 1991       	| 90.49%        	| 2007       	| 40.99%        	|
+| 1992       	| 53.91%        	| 2008       	| -9.60%        	|
+| 1993       	| 11.04%        	| 2009       	| -5.79%        	|
+| 1994       	| 35.79%        	| 2010       	| 31.53%        	|
+| 1995       	| -11.95%       	| 2011       	| 9.18%         	|
+| 1996       	| 42.53%        	| 2012       	| 10.17%        	|
+| 1997       	| 40.44%        	| 2013       	| 5.05%         	|
+| 1998       	| -4.53%        	| 2014       	| 1.39%         	|
+| 1999       	| 25.73%        	| 2015       	| 2.64%         	|
+| 2000       	| 22.20%        	| 2016       	| 4.87%         	|
+| 2001       	| -6.08%        	| 2017       	| 6.74%         	|
+| 2002       	| 6.51%         	| 2018       	| -4.62%        	|
+| 2003       	| 10.26%        	| 2019       	| -7.84%        	|
+| 2004       	| 48.57%        	| 2020       	| -10.13%       	|
+| 2005       	| 35.41%        	| 2021       	| 27.86%        	|
+
+### (c) 
+
+**Consiga los valores promedio anual de la tasa de interés de CETES a 7 días, o la TIIE, la tasa inter-bancaria de equilibrio, y de la tasa de interés a un año, para el periodo que esté disponible.**
+
+La Tasa de Interés Interbancaria de Equilibrio (en adelante "TIIE") es una tasa de referencia de las operaciones de préstamos, créditos y demás operaciones entre o con instituciones bancarias. Esta tasa es determinada por la autoridad monetaria, Banco de México, y es importante porque es el instrumento que refleja las condiciones del mercado de dinero en moneda nacional. 
+
+
+| **Tiempo** 	| **TIIE** 	| **Tiempo** 	| **TIIE** 	|
+|:----------:	|:--------:	|:----------:	|:--------:	|
+|    1995    	|   46.01  	|    2009    	|   5.93   	|
+|    1996    	|   33.61  	|    2010    	|   4.91   	|
+|    1997    	|   21.91  	|    2011    	|   4.82   	|
+|    1998    	|   26.89  	|    2012    	|   4.79   	|
+|    1999    	|   24.1   	|    2013    	|   4.28   	|
+|    2000    	|   16.96  	|    2014    	|   3.52   	|
+|    2001    	|   12.89  	|    2015    	|   3.32   	|
+|    2002    	|   8.17   	|    2016    	|   4.47   	|
+|    2003    	|   6.83   	|    2017    	|   7.06   	|
+|    2004    	|   7.15   	|    2018    	|     8    	|
+|    2005    	|   9.61   	|    2019    	|   8.32   	|
+|    2006    	|   7.51   	|    2020    	|   5.72   	|
+|    2007    	|   7.66   	|    2021    	|   4.62   	|
+|    2008    	|   8.28   	|            	|          	|
+
+Los Certificados de la Tesorería de la Federación (en adelante "CETES") son un instrumento de deuda bursátil emitido por el Gobierno Federal de México. Son unos bonos que utiliza el Estado Mexicano para financiarse, es decir, son pagarés que emite el Estado y que generan intereses para aquellos que invierten en ellos a ciertos plazos específicos. 
+
+En la siguiente gráfica se muestran los valores promedio anual de la tasas CETES a 28, 91, 182 y 364 días, respectivamente. 
+
+| **Tiempo** 	| **CETES28** 	| **CETES91** 	| **CETES182** 	| **CETES364** 	|
+|:----------:	|:-----------:	|:-----------:	|:------------:	|--------------	|
+| 1990       	| 34.82       	| 34.95       	| 29.94        	| 24.95        	|
+| 1991       	| 19.29       	| 19.84       	| 19.84        	| 19.77        	|
+| 1992       	| 15.66       	| 15.93       	| 15.92        	| 16.81        	|
+| 1993       	| 14.85       	| 15.41       	| 15.44        	| 15.44        	|
+| 1994       	| 14.04       	| 14.51       	| 13.98        	| 13.73        	|
+| 1995       	| 48.66       	| 48.54       	| 41.65        	| 37.59        	|
+| 1996       	| 31.33       	| 32.85       	| 33.66        	| 34.22        	|
+| 1997       	| 19.83       	| 21.25       	| 21.87        	| 22.35        	|
+| 1998       	| 24.62       	| 26.04       	| 21.54        	| 22.32        	|
+| 1999       	| 21.29       	| 22.26       	| 23.39        	| 24.23        	|
+| 2000       	| 15.27       	| 16.16       	| 16.60        	| 16.94        	|
+| 2001       	| 11.26       	| 12.19       	| 13.00        	| 13.58        	|
+| 2002       	| 7.08        	| 7.43        	| 8.07         	| 8.62         	|
+| 2003       	| 6.24        	| 6.53        	| 6.92         	| 7.25         	|
+| 2004       	| 6.84        	| 7.13        	| 7.40         	| 7.80         	|
+| 2005       	| 9.19        	| 9.32        	| 9.28         	| 9.24         	|
+| 2006       	| 7.19        	| 7.29        	| 7.41         	| 7.49         	|
+| 2007       	| 7.19        	| 7.36        	| 7.48         	| 7.59         	|
+| 2008       	| 7.68        	| 7.89        	| 8.02         	| 8.12         	|
+| 2009       	| 5.39        	| 5.47        	| 5.56         	| 5.77         	|
+| 2010       	| 4.40        	| 4.57        	| 4.68         	| 4.85         	|
+| 2011       	| 4.24        	| 4.35        	| 4.51         	| 4.66         	|
+| 2012       	| 4.24        	| 4.38        	| 4.51         	| 4.62         	|
+| 2013       	| 3.75        	| 3.81        	| 3.90         	| 3.98         	|
+| 2014       	| 3.00        	| 3.12        	| 3.22         	| 3.37         	|
+| 2015       	| 2.98        	| 3.14        	| 3.29         	| 3.53         	|
+| 2016       	| 4.17        	| 4.36        	| 4.52         	| 4.57         	|
+| 2017       	| 6.69        	| 6.88        	| 7.02         	| 7.10         	|
+| 2018       	| 7.62        	| 7.83        	| 7.97         	| 8.06         	|
+| 2019       	| 7.85        	| 7.94        	| 7.95         	| 7.89         	|
+| 2020       	| 5.32        	| 5.33        	| 5.28         	| 4.79         	|
+| 2021       	| 4.43        	| 4.64        	| 4.90         	| 5.25         	|
+
+### (d) 
+
+**Calcule la diferencia entre el retorno del IPC y el retorno de invertir en CETES a distintos plazos.**
+
+```{r warnings=FALSE, include=FALSE}
+## Calculamos la diferencia entre las series
+
+ipc<-ejercicio5[,6]
+cetes<-ejercicio5[,8]
+
+## Calculamos la diferencia 
+# Generamos las time series primero
+tips<-ts(ipc,start=1990,end=2021,frequency=1)
+tcetes<-ts(cetes,start=1990,end=2020,frequency=1)
+# La convertimos en carácter numérico:
+diferencia<-as.numeric(ipc)-as.numeric(cetes)
+
+```
+
+La diferencia entre los retornos de las series estará dada por la diferencia que existe entre la variación anual del IPC y el rendimiento del CETE. Dicha diferencia se calculó como sigue:
+
+$Diferencia=r_t^{ipc} - r_t^{cetes_i}$
+
+Recuérdese que cada diferencia está dada por la ecuación que sigue:
+
+$r_t^{i}=(V_{t}-V_{t-1} / V_{t-1})*100$
+
+Donde $i\in(ipc, cetes_j)$
+
+Y donde $j\in[{28,91,182,364}]$
+
+La siguiente gráfica muestra las diferencias entre las variaciones de estos dos indicadores, para la tasa de CETES a 28, 91, 182 y 364 días.  
+
+| **Tiempo** 	| **Dif/CETES28** 	| **Dif/CETES91** 	| **Dif/CETES182** 	| **Dif/CETES364** 	|
+|:---:	|:---:	|:---:	|:---:	|:---:	|
+| 1990 	| - 	| - 	| - 	| - 	|
+| 1991 	| 0.712 	| 0.707 	| 0.707 	| 0.707 	|
+| 1992 	| 0.383 	| 0.380 	| 0.380 	| 0.371 	|
+| 1993 	| -0.0381 	| -0.044 	| -0.044 	| -0.044 	|
+| 1994 	| 0.2175 	| 0.213 	| 0.218 	| 0.221 	|
+| 1995 	| -0.6061 	| -0.605 	| -0.536 	| -0.495 	|
+| 1996 	| 0.112 	| 0.097 	| 0.089 	| 0.083 	|
+| 1997 	| 0.2061 	| 0.192 	| 0.186 	| 0.181 	|
+| 1998 	| -0.2915 	| -0.306 	| -0.261 	| -0.269 	|
+| 1999 	| 0.0444 	| 0.035 	| 0.023 	| 0.015 	|
+| 2000 	| 0.0693 	| 0.060 	| 0.056 	| 0.053 	|
+| 2001 	| -0.1734 	| -0.183 	| -0.191 	| -0.197 	|
+| 2002 	| -0.0057 	| -0.009 	| -0.016 	| -0.021 	|
+| 2003 	| 0.0402 	| 0.037 	| 0.033 	| 0.030 	|
+| 2004 	| 0.4173 	| 0.414 	| 0.412 	| 0.408 	|
+| 2005 	| 0.2622 	| 0.261 	| 0.261 	| 0.262 	|
+| 2006 	| 0.3857 	| 0.385 	| 0.384 	| 0.383 	|
+| 2007 	| 0.338 	| 0.336 	| 0.335 	| 0.334 	|
+| 2008 	| -0.1728 	| -0.175 	| -0.176 	| -0.177 	|
+| 2009 	| -0.1118 	| -0.113 	| -0.114 	| -0.116 	|
+| 2010 	| 0.2713 	| 0.270 	| 0.269 	| 0.267 	|
+| 2011 	| 0.0494 	| 0.048 	| 0.047 	| 0.045 	|
+| 2012 	| 0.0593 	| 0.058 	| 0.057 	| 0.056 	|
+| 2013 	| 0.013 	| 0.012 	| 0.012 	| 0.011 	|
+| 2014 	| -0.0161 	| -0.017 	| -0.018 	| -0.020 	|
+| 2015 	| -0.0034 	| -0.005 	| -0.007 	| -0.009 	|
+| 2016 	| 0.007 	| 0.005 	| 0.004 	| 0.003 	|
+| 2017 	| 0.0005 	| -0.001 	| -0.003 	| -0.004 	|
+| 2018 	| -0.1224 	| -0.125 	| -0.126 	| -0.127 	|
+| 2019 	| -0.1569 	| -0.158 	| -0.158 	| -0.157 	|
+| 2020 	| -0.1545 	| -0.155 	| -0.154 	| -0.149 	|
+| 2021 	| 0.2343 	| 0.232 	| 0.230 	| 0.226 	|
+
+Nótese lo siguiente: i. Al ser una diferencia entre tasas (expresadas en porcentaje) las unidades de estas diferencias son también porcentajes. Esto implica que la diferencia entre las variaciones es muy alta, lo mismo para los valores positivos de la diferencia que para los valores negativos. 
+
+### (e) 
+
+**Calcule la covarianza entre dicha diferencias y  la tasa de crecimiento real del consumo agregado de la economía mexicana.**
+
+La covarianza está dada por la siguiente ecuación:
+
+$\sigma_{x,y}=\frac{1}{n-1}\sum_{i=n}^{n}(x_i-\overline{x})(y_i-\overline{y})$
+
+Donde $x=$ diferencia entre el rendimiento del IPC y del $CETES_i$ y $y=$variación real del consumo agregado, donde $i\in[{28,91,182,364}]$ días. 
+
+La covarianza se resume en la siguiente gráfica. 
+
+|  	| **CETES28** 	| **CETES91** 	| **CETES182** 	| **CETES364** 	|
+|:---:	|:---:	|:---:	|:---:	|---	|
+| Covarianzas 	| 0.002177 	| 0.002107 	| 0.002043 	| 0.001938 	|
+
+Nótese que la covarianza es relativamente menor para todas las observaciones. Esto indica que no existe una variación conjunta entre las diferencias en el rendimiento del IPC y de los distintos CETES con el consumo agregado de la economía. 
+
+### (f) 
+
+**Calcule el valor de aversión relativa al riesgo que implican estos números, dado el supuesto de una utilidad con forma ARRC.**
+
+Sabemos que el coeficiente de aversión relativa al riesgo $\theta$ está definido como sigue: 
+
+$\theta=\frac{E[r^i]-E[r^j]}{\sigma_{r^i-r^j, g^c}}$
+
+Este coeficiente se interpreta como el inverso de la elasticidad de sustitución intertemporal. Nótese que $E[r^i]-E[r^j]$ es la diferencia de los valores esperados de la tasa de interés pasivas y $g^c$ representa el cambio en el consumo nacional. 
+
+|  	| **CETES28** 	| **CETES91** 	| **CETES182** 	| **CETES364** 	|
+|:---:	|:---:	|:---:	|:---:	|---	|
+| Covarianzas 	| 0.002177 	| 0.002107 	| 0.002043 	| 0.001938 	|
+| COEF ARRC 	| 29 	| 28 	| 30 	| 31 	|
+
+Nótese que el coeficiente es una medida de aversión al riesgo para el país, dado el supuesto de una utilidad con rendimientos constantes. Nótese, además, que este coeficiente de aversión es mayor al riesgo que el calculado por Romer para USA, para el periodo de análisis. Esto implica que en México los consumidores prefieren un escenario con menor incertidumbre en $t$ que uno con mayor incertidumbre pero en $t+1$. 
+
+Notemos que la variación del coficiente de aversión al riesgo no es tan grande, pues para el corto plazo (28 días) es de 29 mientras que para el largo plazo (364 días) es de 31, es decir, varía, básicamente, en 2 puntos. 
+
+### (g) 
+
+**Ahora calcule la covarianza entre dicha diferencias y  la tasa de crecimiento real del consumo agregado DE BIENES IMPORTADOS [aquí hay una serie: www.inegi.org.mx/temas/imcp/] de la economía mexicana.**
+
+Las variaciones del consumo importado están dadas por la siguiente gráfica: 
+
+| **Tiempo** 	| **CNI** 	| **Tiempo** 	| **CNI** 	|
+|:---:	|:---:	|:---:	|:---:	|
+| 1994 	| 24.74% 	| 2009 	| 5.01% 	|
+| 1995 	| -50.64% 	| 2010 	| -1.30% 	|
+| 1996 	| 64.08% 	| 2011 	| 12.49% 	|
+| 1997 	| 28.63% 	| 2012 	| 3.99% 	|
+| 1998 	| -14.20% 	| 2013 	| 7.88% 	|
+| 1999 	| 20.01% 	| 2014 	| 3.49% 	|
+| 2000 	| 58.45% 	| 2015 	| 8.55% 	|
+| 2001 	| 3.12% 	| 2016 	| -1.44% 	|
+| 2002 	| -2.68% 	| 2017 	| 10.88% 	|
+| 2003 	| 12.54% 	| 2018 	| -3.34% 	|
+| 2004 	| 16.56% 	| 2019 	| 2.76% 	|
+| 2005 	| 11.08% 	| 2020 	| 0.86% 	|
+| 2006 	| 4.98% 	| 2021 	| 13.41% 	|
+| 2007 	| 4.88% 	|  	|  	|
+| 2008 	| -15.37% 	|  	|  	|
+
+La covarianza está dada por la siguiente ecuación:
+
+$\sigma_{x,y}=\frac{1}{n-1}\sum_{i=n}^{n}(x_i-\overline{x})(y_i-\overline{y})$
+
+Donde $x=$ diferencia entre el rendimiento del IPC y del $CETES_i$ y $y=$variación real del consumo agregado, donde $i\in[{28,91,182,364}]$ días. 
+
+La covarianza se resume en la siguiente gráfica. 
+
+|  	| **CETES28** 	| **CETES91** 	| **CETES182** 	| **CETES364** 	|
+|:---:	|:---:	|:---:	|:---:	|---	|
+| Covarianzas 	| 0.02582 	| 0.025312 	| 0.023175 	| 0.022138 	|
+
+Nótese que la covarianza es relativamente menor para todas las observaciones. Esto indica que no existe una variación conjunta entre las diferencias en el rendimiento del IPC y de los distintos CETES con el consumo agregado importado de la economía. 
+
+
+### (h) 
+
+**Calcule el valor de aversión relativa al riesgo que implican estos números, dado el supuesto de una utilidad con forma ARRC.**
+
+Si calculamos ahora el coeficiente con las variaciones del índice de consumo agregado pero importado, tenemos los siguientes resultados:
+
+|  	| **CETES28** 	| **CETES91** 	| **CETES182** 	| **CETES364** 	|
+|:---:	|:---:	|:---:	|:---:	|---	|
+| Covarianzas 	| 0.02582 	| 0.025312 	| 0.023175 	| 0.022138 	|
+| COEF ARRC 	| 2.460441 	| 2.354856 	| 2.641175 	| 2.724758 	|
+
+Nótese que la variación del coeficiente de aversión al riesgo es también menor. Para el corto plazo (28 días) el valor del coeficiente es de 2.46 mientras que el de largo plazo (364 días) el valor es de 2.72. 
+
+### (i) 
+
+**Interprete sus resultados.**
+
+Los resultados son consistentes con lo revisado en la literatura y, particularmente, con lo que indican los resultados de Romer. Nótese que los resultados para la $\theta$ en México son mayores que los calculados para el caso de Estados Unidos. Nótese, además, que las variaciones en los resultados para los distintos niveles de aversión al riesgo son pequeñas y esto nos lleva a concluir que hay consistencia entre las observaciones.
