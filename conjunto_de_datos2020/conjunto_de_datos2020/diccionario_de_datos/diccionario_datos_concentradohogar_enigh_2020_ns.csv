@@ -1,0 +1,264 @@
+﻿Tabla:,,CONCENTRADOHOGAR,,,,
+,,,,,,
+Insumos:,,,,,,
+"VIVIENDAS
+HOGARES
+POBLACION
+INGRESOS",,,,,"GASTOSHOGAR
+GASTOSPERSONA
+EROGACIONES
+",
+,,,,,,
+Construcción general:,,,,,,
+"Esta tabla es un resumen a nivel hogar con las principales variables de interés de la encuesta.
+
+Se construyen las variables (para explotación) de acuerdo a la lista de variables.",,,,,,
+,,,,,,
+Lista de variables:,,,,,,
+#,Variable,,Tipo,Categorías / valores nulos,,Construcción / Observaciones
+,Explotación,Nemónico DWH,,Valor,Etiqueta,
+1,folioviv,IDENTIFICADOR_VIVIENDA,C (10),NOT NULL,,llave foránea de la tabla hogares
+2,foliohog,IDENTIFICADOR_HOGAR,C (1),NOT NULL,,llave foránea de la tabla hogares
+3,ubica_geo,ENTIDAD_MUNICIPIO,C (5),NOT NULL,,Igual a la variable ubica_geo de la tabla viviendas
+4,tam_loc,TAMAÑO_LOCALIDAD,C (1),NOT NULL,,Igual a la variable tam_loc de la tabla viviendas
+,,,,1,Localidades con 100 000 y más habitantes,
+,,,,2,Localidades con 15 000 a 99 999 habitantes,
+,,,,3,Localidades con 2 500 a 14 999 habitantes,
+,,,,4,Localidades con menos de 2 500 habitantes,
+5,est_socio,ESTRATO_SOCIOECONOMICO,C (1),NOT NULL,,Igual a la variable est_socio de la tabla viviendas
+,,,,1,Bajo,
+,,,,2,Medio bajo,
+,,,,3,Medio alto,
+,,,,4,Alto,
+6,est_dis,ESTRATO_DISEÑO,C (3),NOT NULL,,Igual a la variable est_dis de la tabla viviendas
+7,upm,UNIDAD_PRIMARIA_MUESTREO,C (7),NOT NULL,,Igual a la variable upm de la tabla viviendas
+8,factor,FACTOR_EXPANSION,N (5),NOT NULL,,Igual a la variable factor de la tabla viviendas
+9,clase_hog,CLASE_HOGAR,C (1),NOT NULL,,Construcción clase_hog (ver nota)
+,,,,1,Unipersonal,
+,,,,2,Nuclear,
+,,,,3,Ampliado,
+,,,,4,Compuesto,
+,,,,5,Corresidente,
+10,sexo_jefe,SEXO_JEFE_HOGAR,C (1),NOT NULL,,Es igual a la variable sexo donde parentesco = 101 de la tabla poblacion
+,,,,1,Hombre,
+,,,,2,Mujer,
+11,edad_jefe,EDAD_JEFE_HOGAR,N (2),NOT NULL,,Es igual a la variable edad donde parentesco = 101 de la tabla poblacion
+12,educa_jefe,EDUCACION_JEFE_HOGAR,C (2),NULL,,Construcción educa_jefe (ver nota)
+,,,,01,Sin instrucción,
+,,,,02,Preescolar,
+,,,,03,Primaria incompleta,
+,,,,04,Primaria completa,
+,,,,05,Secundaria incompleta,
+,,,,06,Secundaria completa,
+,,,,07,Preparatoria incompleta,
+,,,,08,Preparatoria completa,
+,,,,09,Profesional incompleta,
+,,,,10,Profesional completa,
+,,,,11,Posgrado,
+13,tot_integ,TOTAL-INTEGRANTES,N (2),NOT NULL,,"Contar a las personas de la tabla poblacion donde parentesco inicien con 1, 2, 3, 5  6"
+14,hombres,INTEGRANTES_HOMBRES,N (2),NOT NULL,,"Contar a las personas de la tabla poblacion donde parentesco inicien con 1, 2, 3, 5  6 y sexo = 1"
+15,mujeres,INTEGRANTES_MUJERES,N (2),NOT NULL,,"Contar a las personas de la tabla poblacion donde parentesco inicien con 1, 2, 3, 5  6 y sexo = 2"
+16,mayores,INTEGRANTES_MAYORES,N (2),NOT NULL,,"Contar a las personas de la tabla poblacion donde parentesco inicien con 1, 2, 3, 5  6 y edad > 11"
+17,menores,INTEGRANTES_MENORES,N (2),NOT NULL,,"Contar a las personas de la tabla poblacion donde parentesco inicien con 1, 2, 3, 5  6 y edad < 12"
+18,p12_64,INTEGRANTES_12_A_64_AÑOS,N (2),NOT NULL,,"Contar a las personas de la tabla poblacion donde parentesco inicien con 1, 2, 3, 5  6 y (edad > 11 y edad < 65)"
+19,p65mas,INTEGRANTES_65_AÑOS_Y_MAS,N (2),NOT NULL,,"Contar a las personas de la tabla poblacion donde parentesco inicien con 1, 2, 3, 5  6 y edad > 64"
+20,ocupados,NÚMERO_OCUPADOS,N (2),NOT NULL,,Contar a las personas con trabajo (i.e. poblacion.num_trabaj = 1 o 2  &  poblacion.edad >= 14)
+21,percep_ing,PERCEPTORES_INGRESO,N (2),NOT NULL,,"Contar a las personas que reportan ingreso en cualquiera de las claves P001-P009, P011-P016, P018-P041, P043, P045, P048, P049, P067-P081, P101-P108 en Ingresos."
+22,perc_ocupa,PERCEPTORES_INGRESO_OCUPADOS,N (2),NOT NULL,,"Contar a las personas que reportan ingreso en cualquiera de las claves P001-P009, P011-P016, P018-P041, P043, P045, P048, P049, P067-P081, P101-P108 en Ingresos y que poblacion.num_trabaj= 1 o 2"
+23,ing_cor,INGRESO_CORRIENTE,"N (12,2)",NOT NULL,,ingtrab + rentas + transfer + estim_alqu + otros_ing
+24,ingtrab,INGRESO_TRABAJO,"N (12,2)",NOT NULL,,trabajo + negocio + otros_trab
+25,trabajo,INGRESO_TRABAJO_SUBORDINADO,"N (12,2)",NOT NULL,,sueldos + horas_extr + comisiones + aguinaldo + indemtrab +  otra_rem + remu_espec
+26,sueldos,SUELDOS,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P001, P002, P011,  P014, P018, P067}"
+27,horas_extr,HORAS_EXTRAS,"N (12,2)",NOT NULL,,? de ingresos.ing_tri cuando clave está en {P004}
+28,comisiones,COMISIONES_PROPINAS,"N (12,2)",NOT NULL,,? de ingresos.ing_tri cuando clave está en {P003}
+29,aguinaldo,AGUINALDO,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P008, P009, P015,  P016}"
+30,indemtrab,INDEMNIZACIONES,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P035, P036}"
+31,otra_rem,OTRAS_REMUNERACIONES,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P005,..., P007, P013, P020}"
+32,remu_espec,REMUNERACIONES_ESPECIE,"N (12,2)",NOT NULL,,"? de gastospersona.gas_nm_tri cuando tipogasto está en {G4} y clave no está en {Q001,...,Q016, K038,...,K045}"
+33,negocio,INGRESOS_INDEPENDIENTE,"N (12,2)",NOT NULL,,noagrope + agrope
+34,noagrop,NEGOCIOS_NO_AGROPECUARIOS,"N (12,2)",NOT NULL,,Industria + comercio + servicios
+35,industria,NEGOCIOS_INDUSTRIALES,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P068, P075}"
+36,comercio,NEGOCIOS_COMERCIALES,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P069, P076}"
+37,servicios,NEGOCIOS_SERVICIOS,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P070, P077}"
+38,agrope,NEGOCIOS_AGROPECUARIOS,"N (12,2)",NOT NULL,,agricolas + pecuarios + reproducc + pesca
+39,agricolas,NEGOCIOS_AGRÍCOLAS,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P071, P078}"
+40,pecuarios,NEGOCIOS_PECUARIOS,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P072, P079}"
+41,reproducc,NEGOCIOS_RECOLECCIÓN,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P073, P080}"
+42,pesca,NEGOCIOS_PESCA,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P074, P081}"
+43,otros_trab,OTROS_INGRESOS_POR_TRABAJO,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P021, P022}"
+44,rentas,RENTA_PROPIEDAD,"N (12,2)",NOT NULL,,utilidad + arrenda
+45,utilidad,INGRESOS_SOCIEDADES,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P012, P019}"
+46,arrenda,ARRENDAMIENTO,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P023,...,P031}"
+47,transfer,TRANSFERENCIAS,"N (12,2)",NOT NULL,,jubilacion + becas + donativos + remesas + bene_gob + transf_hog + trans_inst
+48,jubilacion,JUBILACIONES,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P032,P033}"
+49,becas,BECAS,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P037, P038}"
+50,donativos,DONATIVOS,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P039, P040}"
+51,remesas,REMESAS,"N (12,2)",NOT NULL,,? de ingresos.ing_tri cuando clave está en {P041}
+52,bene_gob,BENEFICIOS_GUBERNAMENTALES,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P043, P045, P048, P049, P101,…,P108}"
+53,transf_hog,TRANSFERENCIAS_HOGARES,"N (12,2)",NOT NULL,,"? de gastoshogar.gas_nm_tri  cuando tipogasto  está en {G5} y clave no está en {Q001,...,Q016, K038,...,K045}  y  frecuencia es diferente de 5"
+54,trans_inst,TRANSFERENCIAS_INSTITUCIONES,"N (12,2)",NOT NULL,,"? de gastoshogar.gas_nm_tri  cuando tipogasto  está en {G6} y clave no está en {Q001,...,Q016, K038,...,K045}"
+55,estim_alqu,ESTIMACIÓN_ALQUILER,"N (12,2)",NOT NULL,,? de gastoshogar.gas_nm_tri  cuando tipogasto  está en {G7}
+56,otros_ing,OTROS_INGRESOS_CORRIENTES,"N (12,2)",NOT NULL,,? de ingresos.ing_tri cuando clave está en {P049}
+57,gasto_mon,GASTO_CORRIENTE_MONETARIO,"N (12,2)",NOT NULL,,alimentos + vesti_calz + vivienda + limpieza + salud + transporte + educa_espa + personales + transf_gas
+58,alimentos,ALIMENTOS,"N (12,2)",NOT NULL,,ali_dentro + ali_fuera + tabaco
+59,ali_dentro,ALIMENTOS_DENTRO_HOGAR,"N (12,2)",NOT NULL,,cereales + carnes + pescado + leche + huevo + aceites + tuberculo + verduras + frutas + azucar + cafe + especias + otros_alim + bebidas
+60,cereales,CEREALES,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A001,...,A024} mas
+? de gastospersona.gasto_tri cuando clave está en {A001,...,A024}"
+61,carnes,CARNES,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A025,...,A065} mas
+? de gastospersona.gasto_tri cuando clave está en {A025,...,A065}"
+62,pescado,PESCADOS_MARISCOS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A066,...,A074} mas
+? de gastospersona.gasto_tri cuando clave está en {A066,...,A074}"
+63,leche,LECHE_DERIVADOS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A075,...,A092} mas
+? de gastospersona.gasto_tri cuando clave está en {A075,...,A092}"
+64,huevo,HUEVO,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A093,A094} mas
+? de gastospersona.gasto_tri cuando clave está en {A093,A094}"
+65,aceites,ACEITES_GRASAS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A095,...,A100} mas
+? de gastospersona.gasto_tri cuando clave está en {A095,...,A100}"
+66,tuberculo,TUBÉRCULOS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A101,...,A106} mas
+? de gastospersona.gasto_tri cuando clave está en {A101,...,A106}"
+67,verduras,VERDURAS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A107,...,A146} mas
+? de gastospersona.gasto_tri cuando clave está en {A107,...,A146}"
+68,frutas,FRUTAS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A147,...,A172} mas
+? de gastospersona.gasto_tri cuando clave está en {A147,...,A172}"
+69,azucar,AZÚCAR_MIELES,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A173,...,A175} mas
+? de gastospersona.gasto_tri cuando clave está en {A173,...,A175}"
+70,cafe,"CAFÉ,_TÉ_CHOCOLATE","N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A176,...,A182} mas
+? de gastospersona.gasto_tri cuando clave está en {A176,...,A182}"
+71,especias,ESPECIAS_ADEREZOS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A183,...,A194} mas
+? de gastospersona.gasto_tri cuando clave está en {A183,...,A194}"
+72,otros_alim,OTROS_ALIMENTOS_DIVERSOS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A195,...,A214,A242} mas
+? de gastospersona.gasto_tri cuando clave está en {A195,...,A214, A242}"
+73,bebidas,BEBIDAS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A215,...,A238} mas
+? de gastospersona.gasto_tri cuando clave está en {A215,...,A238}"
+74,ali_fuera,ALIMENTOS_FUERA_HOGAR,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A243,...,A247} mas
+? de gastospersona.gasto_tri cuando clave está en {A243,...,A247}"
+75,tabaco,TABACO,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {A239,...,A241} mas
+? de gastospersona.gasto_tri cuando clave está en {A239,...,A241}"
+76,vesti_calz,VESTIDO_CALZADO,"N (12,2)",NOT NULL,,vestido + calzado
+77,vestido,VESTIDO,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {H001,...,H083,H136} mas
+? de gastospersona.gasto_tri cuando clave está en {H001,...,H083,H136}"
+78,calzado,CALZADO_REPARACIÓN,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {H084,...,H122} mas
+? de gastospersona.gasto_tri cuando clave está en {H084,...,H122}"
+79,vivienda,VIVIENDA,"N (12,2)",NOT NULL,,alquiler + pred_cons + agua + energia
+80,alquiler,ALQUILERES_BRUTOS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {G001,...,G004,G101} mas
+? de gastospersona.gasto_tri cuando clave está en {G001,...,G004}"
+81,pred_cons,PREDIAL_CUOTAS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {G005,...,G008,R004} mas
+? de gastospersona.gasto_tri cuando clave está en {G005,...,G008,R004}"
+82,agua,AGUA,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {R002} mas
+? de gastospersona.gasto_tri cuando clave está en {R002}"
+83,energia,ELECTRICIDAD_COMBUSTIBLES,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {G009,...,G016,R001,R003} mas
+? de gastospersona.gasto_tri cuando clave está en {G009,...,G016,R001,R003}"
+84,limpieza,LIMPIEZA,"N (12,2)",NOT NULL,,cuidados + utensilios + enseres
+85,cuidados,CUIDADOS_CASA,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {C001,...,C024} mas
+? de gastospersona.gasto_tri cuando clave está en {C001,...,C024}"
+86,utensilios,UTENSILIOS_DOMÉSTICOS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {I001,...,I026} mas
+? de gastospersona.gasto_tri cuando clave está en {I001,...,I026}"
+87,enseres,ENSERES_DOMÉSTICOS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {K001,...,K037} mas
+? de gastospersona.gasto_tri cuando clave está en {K001,...,K037}"
+88,salud,CUIDADOS_SALUD,"N (12,2)",NOT NULL,,atenc_ambu + hospital + medicinas
+89,atenc_ambu,ATENCIÓN_PRIMARIA_AMBULATORIA,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {J016,...,J043} mas
+? de gastospersona.gasto_tri cuando clave está en {J016,...,J043}"
+90,hospital,ATENCIÓN_HOSPITALARIA,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {J001,...,J015,J070,...,J072} mas
+? de gastospersona.gasto_tri cuando clave está en {J001,...,J015,J070,...,J072}"
+91,medicinas,MEDICAMENTOS_SIN_RECETA,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {J044,...,J069} mas
+? de gastospersona.gasto_tri cuando clave está en {J044,...,J069}"
+92,transporte,TRANSPORTE,"N (12,2)",NOT NULL,,publico + foraneo + adqui_vehi + mantenim + comunica
+93,publico,TRANSPORTE_PUBLICO,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {B001,...,B007} mas
+? de gastospersona.gasto_tri cuando clave está en {B001,...,B007}"
+94,foraneo,TRANSPORTE_FORÁNEO,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {M001,...,M006} mas
+? de gastospersona.gasto_tri cuando clave está en {M001,...,M006}"
+95,adqui_vehi,ADQUISICIÓN_VEHÍCULOS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {M007,...,M011} mas
+? de gastospersona.gasto_tri cuando clave está en {M007,...,M011}"
+96,mantenim,MANTENIMIENTO_VEHÍCULOS,"N (12,2)",NOT NULL,,refaccion + combus
+97,refaccion,REFACCIONES_VEHÍCULOS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {M012,...,M018} mas
+? de gastospersona.gasto_tri cuando clave está en {M012,...,M018}"
+98,combus,COMBUSTIBLES_VEHÍCULOS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {F007,...,F014} mas
+? de gastospersona.gasto_tri cuando clave está en {F007,...,F014}"
+99,comunica,COMUNICACIONES,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {F001,...,F006,R005,...,R008,R010,R011} mas
+? de gastospersona.gasto_tri cuando clave está en {F001,...,F006,R005,...,R008,R010,R011}"
+100,educa_espa,EDUCACIÓN_ESPARCIMIENTO,"N (12,2)",NOT NULL,,educacion + esparci + paq_turist
+101,educacion,EDUCACIÓN,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {E001,...,E021,H134,H135} mas
+? de gastospersona.gasto_tri cuando clave está en {E001,...,E021,H134,H135}"
+102,esparci,ESPARCIMIENTO,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {E022,...,E034,L001,...,L029,R009} mas
+? de gastospersona.gasto_tri cuando clave está en {E022,...,E034,L001,...,L029,R009}"
+103,paq_turist,PAQUETES_TURÍSTICOS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {N003,N004} mas
+? de gastospersona.gasto_tri cuando clave está en {N003,N004}"
+104,personales,PERSONALES,"N (12,2)",NOT NULL,,cuida_pers + acces_pers + otros_gas
+105,cuida_pers,CUIDADOS_PERSONALES,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {D001,...,D026,H132} mas
+? de gastospersona.gasto_tri cuando clave está en {D001,...,D026,H132}"
+106,acces_pers,ACCESORIOS_PERSONALES,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {H123,...,H131,H133} mas
+? de gastospersona.gasto_tri cuando clave está en {H123,...,H131,H133}"
+107,otros_gas,OTROS_GASTOS_DIVERSOS,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {N001,N002,N005,...,N010,R012,R013} mas
+? de gastospersona.gasto_tri cuando clave está en {N001,N002,N005,...,N010,R012,R013}"
+108,transf_gas,TRANSFERENCIAS_GASTO,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {N011,...,N016,T901,...,T915} mas
+? de gastospersona.gasto_tri cuando clave está en {N011,...,N016,T901,...,T915}"
+109,percep_tot,PERCEPCIONES_TOTALES,"N (12,2)",NOT NULL,,retiro_inv + prestamos + otras_perc + ero_nm_viv + ero_nm_hog
+110,retiro_inv,RETIRO_INVERSIONES,"N (12,2)",NOT NULL,,? de ingresos.ing_tri cuando clave está en {P051}
+111,prestamos,PRÉSTAMOS,"N (12,2)",NOT NULL,,? de ingresos.ing_tri cuando clave está en {P053}
+112,otras_perc,OTRAS_PERCEPCIONES,"N (12,2)",NOT NULL,,"? de ingresos.ing_tri cuando clave está en {P052, P054,..., P066}"
+113,ero_nm_viv,EROGACIONES_PATRIMONIALES,"N (12,2)",NOT NULL,,"? de gastoshogar.gas_nm_tri  cuando tipogasto está en {G5, G6} y clave está en {Q001,...,Q016, K038,...,K045}  mas ? de gastospersona.gas_nm_tri  cuando tipogasto está en {G4} y clave está  en {Q001,...,Q016, K038,...,K045}"
+114,ero_nm_hog,TRANSFERENCIAS_NO_REGULARES,"N (12,2)",NOT NULL,,"? de gastoshogar.gas_nm_tri  cuando tipogasto  está en {G5} y clave no está en {Q001,...,Q016, K038,...,K045}  y  frecuencia es igual a 5"
+115,erogac_tot,EROGACIONES_TOTALES,"N (12,2)",NOT NULL,,cuota_viv + mater_serv + deposito + prest_terc + pago_tarje + deudas + balance + otras_erog
+116,cuota_viv,CUOTA_VIVIENDA,"N (12,2)",NOT NULL,,? de erogaciones.ero_tri  cuando clave está en {Q100}
+117,mater_serv,SERVICIOS_MATERIALES,"N (12,2)",NOT NULL,,material + servicio
+118,material,MATERIALES,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {K038, K040, K042, K044} mas
+? de gastospersona.gasto_tri cuando clave está en {K038, K040, K042, K044}"
+119,servicio,SERVICIOS_REPARACIÓN,"N (12,2)",NOT NULL,,"? de gastoshogar.gasto_tri cuando clave está en {K039, K041, K043, K045} mas
+? de gastospersona.gasto_tri cuando clave está en {K039, K041, K043, K045}"
+120,deposito,DEPÓSITO_AHORRO,"N (12,2)",NOT NULL,,"? de erogaciones.ero_tri cuando clave está en {Q001} mas
+? de gastoshogar.gasto_tri cuando clave está en {Q001} mas
+? de gastospersona.gasto_tri cuando clave está en {Q001}"
+121,prest_terc,PRESTAMOS_TERCEROS,"N (12,2)",NOT NULL,,"? de erogaciones.ero_tri cuando clave está en {Q002} mas
+? de gastoshogar.gasto_tri cuando clave está en {Q002}mas
+? de gastospersona.gasto_tri cuando clave está en {Q002}"
+122,pago_tarje,PAGO_TARJETA_CRÉDITO,"N (12,2)",NOT NULL,,"? de erogaciones.ero_tri cuando clave está en {Q003} mas
+? de gastoshogar.gasto_tri cuando clave está en {Q003}mas
+? de gastospersona.gasto_tri cuando clave está en {Q003}"
+123,deudas,PAGO_DEUDAS,"N (12,2)",NOT NULL,,"? de erogaciones.ero_tri cuando clave está en {Q004} mas
+? de gastoshogar.gasto_tri cuando clave está en {Q004}mas
+? de gastospersona.gasto_tri cuando clave está en {Q004}"
+124,balance,PÉRDIDAS_NEGOCIO,"N (12,2)",NOT NULL,,? de erogaciones.ero_tri  cuando clave está en {Q014}
+125,otras_erog,OTRAS_EROGACIONES,"N (12,2)",NOT NULL,,"? de erogaciones.ero_tri cuando clave está en {Q005,...,Q013,Q015,Q016} mas
+? de gastoshogar.gasto_tri cuando clave está en {Q005,...,Q013,Q015,Q016,T916}mas
+? de gastospersona.gasto_tri cuando clave está en {Q005,...,Q013,Q015,Q016}"
+126,smg,SALARIO_MÍNIMO_GENERAL,"N (6,2)",NOT NULL,,Construcción smg
+,,,,,,
+,,,,,,
+Construcción clase_hog,,,,,,
+Se clasifican los integrantes del hogar de acuerdo con sus claves de parentesco de la tabla de Poblacion:,,,,,,
+Jefe,,Contar a las personas del hogar con parentesco igual a 101,,,,
+Esposa,,Contar a las personas del hogar con parentesco de 201 a 204,,,,
+Hijos,,Contar a las personas del hogar con parentesco de 301 a 304,,,,
+Parientes,,Contar a las personas del hogar con parentesco de 601 a 623,,,,
+NoParientes,,Contar a las personas del hogar con parentesco de 501 a 503,,,,
+Unipersonal,,clase_hog = 1 (Si Jefe = 1 y Esposa = 0 y Hijos = 0 y Parientes = 0 y NoParientes = 0),,,,
+Nuclear,,clase_hog = 2 (Si Jefe = 1 y (Esposa > 0 o Hijos > 0) y Parientes = 0 y NoParientes = 0),,,,
+Ampliado,,clase_hog = 3 (Si Jefe = 1 y (Esposa > 0 o Hijos > 0 o Parientes > 0) y NoParientes = 0),,,,
+Compuesto,,clase_hog = 4 (Si Jefe = 1 y (Esposa > 0 o Hijos > 0 o Parientes > 0) y NoParientes > 0),,,,
+Corresidente,,clase_hog = 5 (Si Jefe = 1 y Esposa = 0 y Hijos = 0 y Parientes = 0 y NoParientes > 0),,,,
+,,,,,,
+,,,,,,
+Construcción educa_jefe,,,,,,
+"Se obtienen las variables nivelaprob, gradoaprob y antec_esc de la tabla Poblacion donde parentesco=101 ó 102",,,,,,
+Sin instrucción,,educa_jefe = 1 (Si nivelaprob = 0),,,,
+Preescolar,,educa_jefe = 2 (Si nivelaprob = 1),,,,
+Primaria incompleta,,educa_jefe = 3 (Si nivelaprob = 2 y gradoaprob < 6),,,,
+Primaria completa,,educa_jefe = 4 (Si nivelaprob = 2 y gradoaprob = 6) ó ((nivelaprob = 5 ó nivelaprob = 6) y antec_esc = 1),,,,
+Secundaria incompleta,,educa_jefe = 5 (Si nivelaprob = 3 y gradoaprob < 3),,,,
+Secundaria completa,,educa_jefe = 6 (Si nivelaprob = 3 y gradoaprob = 3) ó ((nivelaprob = 5 ó nivelaprob = 6) y antec_esc = 2),,,,
+Preparatoria incompleta,,educa_jefe = 7 (Si nivelaprob = 4 y gradoaprob < 3),,,,
+Preparatoria completa,,educa_jefe = 8 (Si nivelaprob = 4 y gradoaprob = 3) ó ((nivelaprob = 5 ó nivelaprob = 6) y antec_esc = 3),,,,
+Profesional incompleta,,educa_jefe = 9 (Si nivelaprob = 7 y gradoaprob < 4),,,,
+Profesional completa,,educa_jefe = 10 (Si nivelaprob = 7 y gradoaprob >= 4) ó ((nivelaprob = 5 ó nivelaprob = 6) y antec_esc = 4),,,,
+Posgrado,,educa_jefe = 11 (Si nivelaprob = 8 ó nivelaprob = 9) ó ((nivelaprob = 5 ó nivelaprob = 6) y antec_esc = 5),,,,
+,,,,,,
+,,,,,,
+Construcción smg,,,,,,
+"Para todos los registros smg= 11,089.80
+
+*SALARIO MÍNIMO GENERAL 2020.
+*Fuente:Comisión Nacional de los Salarios Mínimos
+https://www.gob.mx/conasami/prensa/publica-diario-oficial-de-la-federacion-salarios-minimos-para-2020
+
+*Validez:2020, a partir del 1 de enero
+*Área geográfica ÚNICA diario:$123.22, trimestral:$11,089.80",,,,,,
