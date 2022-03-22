@@ -1,54 +1,54 @@
 \babel@toc {spanish}{}\relax 
 \contentsline {section}{\'{I}ndice de figuras}{3}{section*.2}%
 \contentsline {section}{\'{I}ndice de cuadros}{3}{section*.3}%
-\contentsline {section}{Preguntas teóricas}{4}{section*.4}%
-\contentsline {subsection}{Ejercicio 8.1, Romer (5ta Edicion)}{4}{section*.5}%
-\contentsline {subsubsection}{Ejercicio (a)}{4}{section*.6}%
-\contentsline {subsubsection}{Ejercicio (b)}{4}{section*.7}%
-\contentsline {subsubsection}{Ejercicio (c)}{5}{section*.8}%
-\contentsline {subsection}{Ejercicio 8.2, Romer (5ta Edicion)}{5}{section*.9}%
-\contentsline {subsection}{Ejercicio 8.4, Romer (5ta Edicion)}{6}{section*.10}%
-\contentsline {subsection}{Ejercicio 8.5, Romer (5ta Edicion)}{7}{section*.11}%
-\contentsline {subsubsection}{Ejercicio (a)}{7}{section*.12}%
-\contentsline {subsubsection}{Ejercicio (b)}{7}{section*.13}%
-\contentsline {subsubsection}{Ejercicio (c)}{8}{section*.14}%
-\contentsline {subsubsection}{Ejercicio (d)}{8}{section*.15}%
-\contentsline {subsection}{Ejercicio 8.6, Romer (5ta Edicion)}{9}{section*.16}%
-\contentsline {subsubsection}{Ejercicio (a)}{9}{section*.17}%
-\contentsline {subsubsection}{Ejercicio (b)}{9}{section*.18}%
-\contentsline {subsubsection}{Ejercicio (c)}{10}{section*.19}%
-\contentsline {subsection}{Ejercicio 2}{10}{section*.20}%
-\contentsline {subsubsection}{(a)}{11}{section*.21}%
-\contentsline {subsubsection}{(b)}{11}{section*.22}%
-\contentsline {subsubsection}{(c)}{12}{section*.23}%
-\contentsline {subsubsection}{(d)}{12}{section*.24}%
-\contentsline {subsubsection}{(e)}{13}{section*.25}%
-\contentsline {subsubsection}{(f)}{13}{section*.26}%
-\contentsline {subsubsection}{(g)}{14}{section*.27}%
-\contentsline {subsection}{Ejercicio 3.}{15}{section*.28}%
-\contentsline {subsubsection}{a)}{15}{section*.29}%
-\contentsline {subsubsection}{b)}{17}{section*.30}%
-\contentsline {paragraph}{b.1) Graficando en su valor original}{17}{section*.31}%
-\contentsline {paragraph}{b.2) Graficando su ln}{18}{section*.32}%
-\contentsline {subsubsection}{c)}{18}{section*.33}%
-\contentsline {subsubsection}{d)}{19}{section*.34}%
-\contentsline {subsubsection}{e)}{20}{section*.35}%
-\contentsline {subsubsection}{f)}{21}{section*.36}%
-\contentsline {subsubsection}{g)}{26}{section*.37}%
-\contentsline {subsection}{Ejercicio 4}{26}{section*.38}%
-\contentsline {subsubsection}{(a)}{26}{section*.39}%
-\contentsline {subsubsection}{(b)}{27}{section*.40}%
-\contentsline {subsubsection}{(c)}{28}{section*.41}%
-\contentsline {subsubsection}{(d)}{28}{section*.42}%
-\contentsline {subsubsection}{(e)}{29}{section*.43}%
-\contentsline {subsection}{Ejercicio 5}{30}{section*.44}%
-\contentsline {subsubsection}{(a)}{30}{section*.45}%
-\contentsline {subsubsection}{(b)}{30}{section*.46}%
-\contentsline {subsubsection}{(c)}{30}{section*.47}%
-\contentsline {subsubsection}{(d)}{30}{section*.48}%
-\contentsline {subsubsection}{(e)}{30}{section*.49}%
-\contentsline {subsubsection}{(f)}{30}{section*.50}%
-\contentsline {subsubsection}{(g)}{30}{section*.51}%
-\contentsline {subsubsection}{(h)}{30}{section*.52}%
-\contentsline {subsubsection}{(i)}{31}{section*.53}%
-\contentsline {subsection}{Ejercicio 6}{31}{section*.54}%
+\contentsline {section}{Preguntas teóricas}{5}{section*.4}%
+\contentsline {subsection}{Ejercicio 8.1, Romer (5ta Edicion)}{5}{section*.5}%
+\contentsline {subsubsection}{Ejercicio (a)}{5}{section*.6}%
+\contentsline {subsubsection}{Ejercicio (b)}{5}{section*.7}%
+\contentsline {subsubsection}{Ejercicio (c)}{6}{section*.8}%
+\contentsline {subsection}{Ejercicio 8.2, Romer (5ta Edicion)}{6}{section*.9}%
+\contentsline {subsection}{Ejercicio 8.4, Romer (5ta Edicion)}{7}{section*.10}%
+\contentsline {subsection}{Ejercicio 8.5, Romer (5ta Edicion)}{8}{section*.11}%
+\contentsline {subsubsection}{Ejercicio (a)}{8}{section*.12}%
+\contentsline {subsubsection}{Ejercicio (b)}{8}{section*.13}%
+\contentsline {subsubsection}{Ejercicio (c)}{9}{section*.14}%
+\contentsline {subsubsection}{Ejercicio (d)}{9}{section*.15}%
+\contentsline {subsection}{Ejercicio 8.6, Romer (5ta Edicion)}{10}{section*.16}%
+\contentsline {subsubsection}{Ejercicio (a)}{10}{section*.17}%
+\contentsline {subsubsection}{Ejercicio (b)}{10}{section*.18}%
+\contentsline {subsubsection}{Ejercicio (c)}{11}{section*.19}%
+\contentsline {subsection}{Ejercicio 2}{12}{section*.20}%
+\contentsline {subsubsection}{(a)}{12}{section*.21}%
+\contentsline {subsubsection}{(b)}{12}{section*.22}%
+\contentsline {subsubsection}{(c)}{13}{section*.23}%
+\contentsline {subsubsection}{(d)}{13}{section*.24}%
+\contentsline {subsubsection}{(e)}{14}{section*.25}%
+\contentsline {subsubsection}{(f)}{14}{section*.26}%
+\contentsline {subsubsection}{(g)}{15}{section*.27}%
+\contentsline {subsection}{Ejercicio 3}{18}{section*.28}%
+\contentsline {subsubsection}{a)}{18}{section*.29}%
+\contentsline {subsubsection}{b)}{21}{section*.30}%
+\contentsline {paragraph}{b.1) Graficando en su valor original}{21}{section*.31}%
+\contentsline {paragraph}{b.2) Graficando su ln}{23}{section*.32}%
+\contentsline {subsubsection}{c)}{25}{section*.33}%
+\contentsline {subsubsection}{d)}{27}{section*.34}%
+\contentsline {subsubsection}{e)}{28}{section*.35}%
+\contentsline {subsubsection}{f)}{29}{section*.36}%
+\contentsline {subsubsection}{g)}{36}{section*.37}%
+\contentsline {subsection}{Ejercicio 4}{38}{section*.38}%
+\contentsline {subsubsection}{(a)}{38}{section*.39}%
+\contentsline {subsubsection}{(b)}{38}{section*.40}%
+\contentsline {subsubsection}{(c)}{39}{section*.41}%
+\contentsline {subsubsection}{(d)}{40}{section*.42}%
+\contentsline {subsubsection}{(e)}{41}{section*.43}%
+\contentsline {subsection}{Ejercicio 5}{42}{section*.44}%
+\contentsline {subsubsection}{(a)}{42}{section*.45}%
+\contentsline {subsubsection}{(b)}{42}{section*.46}%
+\contentsline {subsubsection}{(c)}{43}{section*.47}%
+\contentsline {subsubsection}{(d)}{44}{section*.48}%
+\contentsline {subsubsection}{(e)}{45}{section*.49}%
+\contentsline {subsubsection}{(f)}{46}{section*.50}%
+\contentsline {subsubsection}{(g)}{46}{section*.51}%
+\contentsline {subsubsection}{(h)}{47}{section*.52}%
+\contentsline {subsubsection}{(i)}{48}{section*.53}%
+\contentsline {subsection}{Ejercicio 6}{49}{section*.54}%

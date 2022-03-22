@@ -21,7 +21,7 @@ library(seasonal)
 library(tibble)
 
 ## Cargamos el excel con los datos
-ejercicio5<-read.csv("C:\\Users\\elam_\\OneDrive - El Colegio de México A.C\\Maestría en Economía - 2021-2023\\Maestría en Economía - Colmex\\Segundo Semestre Maestría\\Macroeconomía\\Tareas\\Tarea 2\\Series\\Ejercicio 5 Tasas.csv")
+ejercicio5<-read.csv("ejercicio_5.csv")
 View(ejercicio5)
 
 ## 

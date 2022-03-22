@@ -352,7 +352,7 @@ No podemos concluir nada sobre la forma que los agentes suaviazan el consumo con
 pacman::p_load(tidyverse,
                ggthemes,
                haven, readxl,
-               kableExtra,
+               kableExtra, ggfortify,
                cowplot, ggplot2, scales, viridis, latticeExtra,
                knitr, tinytex, reshape, lubridate, scales, reshape2, seasonal, plm, latex2exp, tibble)
 
@@ -362,6 +362,8 @@ pacman::p_load(tidyverse,
 
 set.seed(1000) #Utilizamos una semilla para poder replicar los experimentos. 
 ```
+\newpage
+
 ## Ejercicio 2
 **2. Simule una variedad de agentes que tienen ingresos permanentes diferentes e ingresos transitorios diferentes y calcule la relación entre consumo e ingreso que resulta dada una variedad de supuestos para las varianzas de cada tipo de ingreso siguiendo estos pasos:**
 
@@ -559,12 +561,12 @@ knitr::kable(LRtable3,booktabs = TRUE, format = 'latex', caption = "Tercera Regr
 ```
 Hacemos lo mismo que en el inciso anterior y obtenemos $\hat{\beta}\approx.26$, es decir, es más probable que una variación del Ingreso Total provenga de un aumento en el Ingreso Transitorio, esto lleva a que un incremento de una unidad de Ingreso Total solo produzca un aumento de .32 unidades de Consumo.
 
-## Ejercicio 3. 
+\newpage
 
+## Ejercicio 3
 **Estudie el consumo agregado en México siguiendo estos pasos:**
 
-```{r set, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, include=FALSE}
 ## Cargamos el excel con las variables ya trabajadas (base=2013)
 
 variables<-read.csv("variables.csv")
@@ -633,11 +635,11 @@ Ahora, para obtener las series en términos reales, las deflactamos con el INPC.
 
 Aprovecharemos, en este inciso, para mostrar el proceso por el cual se desestacionalizó la variable $G$ así como $XN$. Lo primero es identificar que toda serie de tiempo tiene 4 componentes, a saber: ciclo, tendencia, estacionalidad e irregularidad. Se descompuso la serie en sus 4 componentes, que para el caso de $G$ se observan a continuación:
 
-```{r echo=FALSE, fig.cap= "Descomposición de la serie G", fig.pos='H'}
+```{r echo=FALSE, fig.cap= "Descomposición de la serie G", fig.pos='H', fig.height=7}
 ## Tenemos que desestacionalizar la serie de G y de XN:
 # Ajuste estacional por Census X11:G
 gstd<-decompose(gst,"additive")
-plot(gstd,xlab="Tiempo")
+autoplot(gstd,xlab="Tiempo", ylab=" ", main = " ") + theme_bw()
 grstd<-unlist(gstd[[3]])
 
 ```
@@ -646,10 +648,10 @@ De esta descomposición solamente obtenemos el componente de la tendencia para l
 
 Las series que se trabajarán a lo largo de este ejercicio son las que siguen: 
 
-```{r       echo=FALSE,fig.cap= "Variables macroeconómicas seleccionadas", fig.pos='H',warning=FALSE       }
+```{r       echo=FALSE,fig.cap= "Variables macroeconómicas seleccionadas", fig.pos='H', fig.height = 9, warning=FALSE       }
 ## Todas juntas:
 unidas<-ts.union(cst,yst,Ist,grstd,xnst)
-plot(unidas,xlab="Tiempo",main="")
+autoplot(unidas,xlab="Tiempo", ylab=" ",main=" ") + theme_bw()
 
 ```
 
@@ -663,13 +665,15 @@ Nótese que las variables están suavizadas y normalizadas, así como están en 
 
 Para realizar este inciso tuvimos que normalizar las variables para hacerlas comparables, esto debido a que los valores máximos y mínimos de estas son muy disímiles. La normalización se dio a través de la siguiente fórmula:
 
-$Z_i=\frac{X_i- \mu}{\sigma}$
+$$
+Z_i=\frac{X_i- \mu}{\sigma}
+$$
 
 Donde $x_i$ es cada una de las observaciones de las series para cada $t_i$, con $t_i \in[1993I-2021IV]$ lo que nos devolverá un nuevo valor $z_i$ para $t_i\in[1993I-2021IV]$, de esta forma no se pierde ninguna observación y sólo se modifica la escala, lo que nos permite hacer comparaciones entre las variables. En la siguiente gráfica se muestran las variables en niveles: $C$, $Y$, $I$ y $G$. 
 
-```{r    echo=FALSE, fig.cap= "Variables seleccionadas: 1993-2022", fig.pos='H'}
+```{r    echo=FALSE, fig.cap= "Variables seleccionadas: 1993-2022", fig.pos='H', fig.height=9}
 juntas<-ts.union(cst,yst,Ist,grstd,dframe=FALSE)
-plot(juntas, ylab="CYIG",xlab="Tiempo",main="")
+autoplot(juntas, ylab="CYIG",xlab="Tiempo",main="") + theme_bw()
 ```
 
 Nótese que estas variables tienen un comportamiento similar. En todo el periodo la tendencia es creciente, con una caída importante durante la pandemia y a partir del Gobierno de Andrés Manuel López Obrador. Nótese, además, que el $G$ tuvo una caída menor, pues a partir de la crisis económica generada por la pandemia el gobierno en turno incentivó la economía a través de una política fiscal expansiva. 
@@ -696,8 +700,8 @@ lnGts<-ts(lnG,start=1993,frequency=4)
 lnjuntas<-ts.union(lncts,lnyts,lnIts,lnGts,dframe=FALSE)
 ```
 
-```{r echo=FALSE,                                   include=TRUE, fig.cap= "Variables seleccionadas en logaritmo: 1993-2022", fig.pos='H'}
-plot(lnjuntas,ylab="LogX",xlab="Tiempo",main="")
+```{r echo=FALSE,                                   include=TRUE, fig.cap= "Variables seleccionadas en logaritmo: 1993-2022", fig.pos='H', fig.height=9}
+autoplot(lnjuntas,ylab="LogX",xlab="Tiempo",main="") + theme_bw()
 ```
 
 ### c) 
@@ -706,7 +710,9 @@ plot(lnjuntas,ylab="LogX",xlab="Tiempo",main="")
 
 La tasa de crecimiento de cada una de las series está dada por la siguiente ecuación:
 
-$\Delta{x_t}=(X_t - X_{t-1}) / X_{t-1} \times 100$
+$$
+\Delta{x_t}=(X_t - X_{t-1}) / X_{t-1} \times 100
+$$
 
 Donde cada $\Delta{x_t}$ es un valor para el tiempo $t$ que medirá la variación que tuvo cada observación respecto al tiempo $t-1$. Este valor está expresado en porcentaje. 
 
@@ -727,7 +733,7 @@ dGts<-ts(dG,start=1993,frequency=4)
 dXNts<-ts(dXN,start=1993,frequency=4)
 ```
 
-```{r echo=FALSE, fig.cap= "Variaciones porcentuales de variables seleccionadas: 1993-2022", fig.pos='H',warning=FALSE}
+```{r echo=FALSE, fig.cap= "Variaciones porcentuales de variables seleccionadas: 1993-2022", fig.pos='H', fig.height=7.5, warning=FALSE}
 ## Generamos la gráfica completa:
 varuni<-ts.union(dcts,dyts,dIts,dGts,dXNts,dframe=FALSE)
 plot(varuni,xlab="Tiempo",main="")
@@ -742,7 +748,7 @@ Notemos que $\Delta{C_t}$, $\Delta{Y_t}$ y $\Delta{I_t}$ son muy similares, esto
 
 Esta variación conjunta entre $\Delta{C_t}$ y $\Delta{Y_t}$ no es clara si graficamos como la gráfica que sigue, sin embargo, nótese que esta relación es positiva, es decir, intuitivamente podemos decir que las variaciones positivas de $Y_t$ se relacionan con variaciones positivas de $C_t$.
 
-```{r         echo=FALSE, include=TRUE, fig.cap= "Relación entre %Y y %C", fig.pos='H', warning=FALSE}
+```{r         echo=FALSE, include=TRUE, fig.cap= "Relación entre Y y C", fig.pos='H', fig.height=6, warning=FALSE}
 ## Graficamos Y y C:
 
 plot(dc,dy,ylab="Variación consumo", xlab="Variación ingreso",type="p")
@@ -750,7 +756,7 @@ plot(dc,dy,ylab="Variación consumo", xlab="Variación ingreso",type="p")
 
 Notemos que esta relación es difícil de ver, dado que las variaciones son muy disímiles. Hagamos ahora la comparación con las variables en logaritmos. En la siguiente gráfica se muestra esta relación. 
 
-```{r echo=FALSE,             include=TRUE, fig.cap= "Relación entre ln(Y) y ln(C)", fig.pos='H', warning=FALSE}
+```{r echo=FALSE,             include=TRUE, fig.cap= "Relación entre ln(Y) y ln(C)", fig.pos='H', fig.height=6, warning=FALSE}
 ##Graficamos
 
 plot(lnc,lny,ylab="Consumo",xlab="Ingreso")
@@ -767,11 +773,15 @@ Nótese que esta relación es positiva, es decir, la variación del consumo y de
 
 Sabemos que la volatilidad de un conjunto de datos está dada por la raíz cuadrada de la varianza, es decir, por la siguiente ecuación:
 
-$S_n=\sqrt{\sigma^2}$
+$$
+S_n=\sqrt{\sigma^2}
+$$
 
 A su vez, sabemos que la varianza $\sigma^2$ se define como sigue:
 
-$\sigma^2=\frac{1}{n}\sum(x_i-\mu)^2$
+$$
+\sigma^2=\frac{1}{n}\sum(x_i-\mu)^2
+$$
 
 Donde la varianza de $C_t$ está dada por lo siguiente:
 
@@ -847,7 +857,7 @@ Esta regresión se grafica en la siguiente tabla. Nótese que la relación es di
 
 Notemos que la propensión marginal a consumir es igual a 0.9, es decir, que cambios en el ingreso se traducen casi proporcionalmente a cambios en el consumo, siendo la diferencia, es decir, 0.1, la propensión marginal a ahorrar.
 
-```{r  echo=FALSE,          include=TRUE,warning=FALSE    }
+```{r  echo=FALSE,     fig.cap="Modelo 1", fig.height=5,     include=TRUE,warning=FALSE    }
 #Modelo 1:
 regresion1<-lm(cst~yst,data=cst)
 ## Graficamos
@@ -858,7 +868,7 @@ abline(regresion1)
 
 Ahora notemos los errores. Eston están dados en la siguiente gráfica. Notemos que estos errores presentan un patrón, lo que indica que hay asociación lineal entre las variables. En el resumen de los estadísticos de la regresión notaremos esta salvedad de la regresión:
 
-```{r  echo=FALSE,                     include=TRUE,  warning=FALSE}
+```{r  echo=FALSE,          fig.cap="Errores Modelo 1", fig.height=5,           include=TRUE,  warning=FALSE}
 ## Obtenemos los residuos
 residuos1<-rstandard(regresion1)
 ##Los ajustamos
@@ -890,7 +900,7 @@ Esta regresión se grafica en la siguiente tabla. Nótese que la relación es di
 
 Notemos que la propensión marginal a consumir es igual a 0.8, es decir, que cambios en el ingreso se traducen casi proporcionalmente a cambios en el consumo, siendo la diferencia, es decir, 0.2, la propensión marginal a ahorrar.
 
-```{r echo=FALSE, include=TRUE,    warning=FALSE}
+```{r echo=FALSE, include=TRUE, fig.cap="Modelo 2", fig.height=5,   warning=FALSE}
 #Modelo 2:
 regresion2<-lm(dc~dy,data=dcts)
 ## Graficamos
@@ -901,7 +911,7 @@ abline(regresion2)
 
 Ahora notemos los errores. Eston están dados en la siguiente gráfica. Notemos que estos errores no se distribuyen aleatoriamente, lo que indica que hay asociación lineal entre las variables. En el resumen de los estadísticos de la regresión notaremos esta salvedad de la regresión.
 
-```{r  echo=FALSE,                     include=TRUE,  warning=FALSE}
+```{r  echo=FALSE,          fig.cap="Errores Modelo 2", fig.height=5,         include=TRUE,  warning=FALSE}
 ## Obtenemos los residuos
 residuos2<-rstandard(regresion2)
 ##Los ajustamos
@@ -940,17 +950,6 @@ Los estadísticos se muestran en la siguiente tabla:
 
 Notemos que la $R^2$ ajustada es muy alta, es decir, las variaciones en el consumo se explican completamente por las variaciones en el ingreso. Como ya mencionamos, este resultado indica que hay asociación lineal entre las variables pues la *bondad de ajuste* es mayor al 90%.
 
-```{r echo=FALSE,   include=FALSE,     warning=FALSE}
-#Modelo 3:
-## Buscamos si es estacionaria o no:
-
-## La rezagamos 
-
-## Graficamos
-
-## Agregamos la regresión
-
-```
 
 4. Ahora estimemos el cuarto modelo de regresión lineal el cual está dado por la ecuación que sigue:
 
@@ -966,7 +965,7 @@ Esta regresión se grafica en la siguiente tabla. Nótese que la relación es di
 
 Notemos que la propensión marginal a consumir es igual a 1.13, es decir, que cambios en el logaritmo del ingreso se traducen más que proporcionalmente a cambios en el logaritmo del consumo.
 
-```{r  echo=FALSE,           include=TRUE,   warning=FALSE}
+```{r  echo=FALSE,     fig.cap="Modelo 4", fig.height=5,      include=TRUE,   warning=FALSE}
 #Modelo 4:
 regresion4<-lm(lnc~lny,data=lncts)
 ## Graficamos
@@ -977,7 +976,7 @@ abline(regresion4)
 
 Ahora notemos los errores. Eston están dados en la siguiente gráfica. Notemos que estos errores presentan un patrón, lo que indica que hay asociación lineal entre las variables. En el resumen de los estadísticos de la regresión notaremos esta salvedad de la regresión:
 
-```{r  echo=FALSE,                     include=TRUE,  warning=FALSE}
+```{r  echo=FALSE,            fig.cap="Errores Modelo 4", fig.height=5,         include=TRUE,  warning=FALSE}
 ## Obtenemos los residuos
 residuos4<-rstandard(regresion4)
 ##Los ajustamos
@@ -1007,7 +1006,7 @@ Esta propensión explica qué porcentajes de las variaciones en el ingreso se tr
 
 Como conclusión, no es difícil demostrar que la HIP no se sostiene para el caso de México, en el periodo observado, sin embargo, en línea con las implicaciones empíricas expuestas en Romer, un análisis más robusto implicaría identificar las variaciones del consumo que provienen de variaciones permanentes o transitivas en el ingreso, por lo que esta hipótesis no puede ser desechada completamente y más bien haría falta hacer un análisis econométrico enfocado en clasificar las variaciones transitivas y/o permanentes en el ingreso.
 
-```{r echo=FALSE,          include=FALSE}
+```{r echo=FALSE,   include=FALSE}
 ## Tenemos que desestacionalizar la serie de G y de XN:
 # Ajuste estacional por Census X11:G
 gstd<-decompose(gst,"additive")
@@ -1020,6 +1019,8 @@ xnsd<-decompose(xnst,"additive")
 xnstd<-unlist(xnsd[[3]])
 plot(xnstd,main="Exportaciones Netas, 2002-2021",sub="Fuente: Elaboración propia con base en Banxico", ylab="exportaciones netas", xlab="tiempo")
 ```
+
+\newpage
 
 ## Ejercicio 4
 **4. Estudie el consumo de los individuos en México, siguiendo estos pasos:**
@@ -1225,7 +1226,7 @@ De la figura, se observa que, en promedio, el grupo con mayores ingresos consta 
 Un resultado importante de la Hipótesis del Ingreso Permanente es que el parámetro estimado para la pendiente de la relación entre consumo e ingreso, ($\hat{b}$), será mayor en tanto las variaciones del ingreso transitorio sean menores (Ver ejercicio 8.2 de los teóricos). Podemos entonces inferir que, en México, hay un fuerte componente de variación en el ingreso transitorio (tenemos una $\hat{b}$ baja para el inciso (a)). Por otra parte, cuando acotamos nuestras observaciones, encontramos un mayor parámetro para los capitalinos entre 30 y 40 años. Esto nos lleva a pensar que el ingreso transitorio varía relativamente poco para este grupo de personas.
 
 
-
+\newpage
 
 ## Ejercicio 5
 **5. Estudie el ``acertijo del premio al riesgo'' para el caso de México siguiendo estos pasos:**
@@ -1236,6 +1237,7 @@ Un resultado importante de la Hipótesis del Ingreso Permanente es que el parám
 **Consiga los valores anuales de IPC, el Indice de Precios y Cotizaciones de la Bolsa Mexicana de Valores por lo menos desde 1990.**
 
 El índice de Precios y Cotizaciones (en adelante "IPC") es el principal indicador de la evolución del mercado accionario en México. Lo que mide este índice es el rendimiento de las acciones de mayor tamaño y liquidez de empresas que cotizan en la Bolsa Mexicana de Valores. 
+
 
 | *Tiempo* 	| *IPC*      	| *Tiempo*    	| *IPC*      	|
 |:------:	|----------	|------	|----------	|
@@ -1256,6 +1258,7 @@ El índice de Precios y Cotizaciones (en adelante "IPC") es el principal indicad
 | 2004   	| 10677.26 	| 2020 	| 38704.09 	|
 | 2005   	| 14458.61 	| 2021 	| 49487.49 	|
 
+Table: Valores del IPC 1990-2021
 
 ### (b) 
 
@@ -1267,7 +1270,9 @@ $r_t^{ipc}=(V_{t}-V_{t-1} / V_{t-1})*100$
 
 Donde $V_t$ es el valor en $t$ mientras que $V_{t-1}$ es el valor en el periodo anterior. Notemos que la variación para el índice es el rendimiento y que ésta es muy volátil debido a la naturaleza de la bolsa de valores. Nótese, además, que la tendencia es creciente. 
 
-| **Tiempo** 	| **r_t^{ipc}** 	| **Tiempo** 	| **r_t^{ipc}** 	|
+\newpage
+
+| **Tiempo** 	| **$r_t^{ipc}$** 	| **Tiempo** 	| **$r_t^{ipc}$** 	|
 |:----------:	|:-------------:	|:----------:	|:-------------:	|
 | 1990       	| -             	| 2006       	| 45.76%        	|
 | 1991       	| 90.49%        	| 2007       	| 40.99%        	|
@@ -1286,12 +1291,13 @@ Donde $V_t$ es el valor en $t$ mientras que $V_{t-1}$ es el valor en el periodo 
 | 2004       	| 48.57%        	| 2020       	| -10.13%       	|
 | 2005       	| 35.41%        	| 2021       	| 27.86%        	|
 
+Table: Tasa de rendimiento IPC 1990-2021
+
 ### (c) 
 
 **Consiga los valores promedio anual de la tasa de interés de CETES a 7 días, o la TIIE, la tasa inter-bancaria de equilibrio, y de la tasa de interés a un año, para el periodo que esté disponible.**
 
 La Tasa de Interés Interbancaria de Equilibrio (en adelante "TIIE") es una tasa de referencia de las operaciones de préstamos, créditos y demás operaciones entre o con instituciones bancarias. Esta tasa es determinada por la autoridad monetaria, Banco de México, y es importante porque es el instrumento que refleja las condiciones del mercado de dinero en moneda nacional. 
-
 
 | **Tiempo** 	| **TIIE** 	| **Tiempo** 	| **TIIE** 	|
 |:----------:	|:--------:	|:----------:	|:--------:	|
@@ -1309,6 +1315,8 @@ La Tasa de Interés Interbancaria de Equilibrio (en adelante "TIIE") es una tasa
 |    2006    	|   7.51   	|    2020    	|   5.72   	|
 |    2007    	|   7.66   	|    2021    	|   4.62   	|
 |    2008    	|   8.28   	|            	|          	|
+
+Table: TIIE 1990-2021
 
 Los Certificados de la Tesorería de la Federación (en adelante "CETES") son un instrumento de deuda bursátil emitido por el Gobierno Federal de México. Son unos bonos que utiliza el Estado Mexicano para financiarse, es decir, son pagarés que emite el Estado y que generan intereses para aquellos que invierten en ellos a ciertos plazos específicos. 
 
@@ -1349,11 +1357,17 @@ En la siguiente gráfica se muestran los valores promedio anual de la tasas CETE
 | 2020       	| 5.32        	| 5.33        	| 5.28         	| 4.79         	|
 | 2021       	| 4.43        	| 4.64        	| 4.90         	| 5.25         	|
 
+Table: CETES a corto y largo plazo 1990-2021
+
 ### (d) 
 
 **Calcule la diferencia entre el retorno del IPC y el retorno de invertir en CETES a distintos plazos.**
 
 ```{r warnings=FALSE, include=FALSE}
+#Base
+ejercicio5<-read.csv("ejercicio_5.csv", sep = ",")
+
+
 ## Calculamos la diferencia entre las series
 
 ipc<-ejercicio5[,6]
@@ -1417,6 +1431,8 @@ La siguiente gráfica muestra las diferencias entre las variaciones de estos dos
 | 2020 	| -0.1545 	| -0.155 	| -0.154 	| -0.149 	|
 | 2021 	| 0.2343 	| 0.232 	| 0.230 	| 0.226 	|
 
+Table: Diferencia entre rendimiento IPC y CETES 1990-2021
+
 Nótese lo siguiente: i. Al ser una diferencia entre tasas (expresadas en porcentaje) las unidades de estas diferencias son también porcentajes. Esto implica que la diferencia entre las variaciones es muy alta, lo mismo para los valores positivos de la diferencia que para los valores negativos. 
 
 ### (e) 
@@ -1435,6 +1451,8 @@ La covarianza se resume en la siguiente gráfica.
 |:---:	|:---:	|:---:	|:---:	|---	|
 | Covarianzas 	| 0.002177 	| 0.002107 	| 0.002043 	| 0.001938 	|
 
+Table: Covarianza entre rendimiento y diferencia
+
 Nótese que la covarianza es relativamente menor para todas las observaciones. Esto indica que no existe una variación conjunta entre las diferencias en el rendimiento del IPC y de los distintos CETES con el consumo agregado de la economía. 
 
 ### (f) 
@@ -1451,6 +1469,8 @@ Este coeficiente se interpreta como el inverso de la elasticidad de sustitución
 |:---:	|:---:	|:---:	|:---:	|---	|
 | Covarianzas 	| 0.002177 	| 0.002107 	| 0.002043 	| 0.001938 	|
 | COEF ARRC 	| 29 	| 28 	| 30 	| 31 	|
+
+Table: Cálculo del Coeficiente de Aversión al Riesgo
 
 Nótese que el coeficiente es una medida de aversión al riesgo para el país, dado el supuesto de una utilidad con rendimientos constantes. Nótese, además, que este coeficiente de aversión es mayor al riesgo que el calculado por Romer para USA, para el periodo de análisis. Esto implica que en México los consumidores prefieren un escenario con menor incertidumbre en $t$ que uno con mayor incertidumbre pero en $t+1$. 
 
@@ -1480,6 +1500,8 @@ Las variaciones del consumo importado están dadas por la siguiente gráfica:
 | 2007 	| 4.88% 	|  	|  	|
 | 2008 	| -15.37% 	|  	|  	|
 
+Table: Tasa de variación de consumo importado 1994-2021
+
 La covarianza está dada por la siguiente ecuación:
 
 $\sigma_{x,y}=\frac{1}{n-1}\sum_{i=n}^{n}(x_i-\overline{x})(y_i-\overline{y})$
@@ -1491,6 +1513,8 @@ La covarianza se resume en la siguiente gráfica.
 |  	| **CETES28** 	| **CETES91** 	| **CETES182** 	| **CETES364** 	|
 |:---:	|:---:	|:---:	|:---:	|---	|
 | Covarianzas 	| 0.02582 	| 0.025312 	| 0.023175 	| 0.022138 	|
+
+Table: Covarianza entre diferencia y consumo agregado
 
 Nótese que la covarianza es relativamente menor para todas las observaciones. Esto indica que no existe una variación conjunta entre las diferencias en el rendimiento del IPC y de los distintos CETES con el consumo agregado importado de la economía. 
 
@@ -1506,6 +1530,8 @@ Si calculamos ahora el coeficiente con las variaciones del índice de consumo ag
 | Covarianzas 	| 0.02582 	| 0.025312 	| 0.023175 	| 0.022138 	|
 | COEF ARRC 	| 2.460441 	| 2.354856 	| 2.641175 	| 2.724758 	|
 
+Table: Cálculo de Coeficiente de Aversión al Riesgo (2)
+
 Nótese que la variación del coeficiente de aversión al riesgo es también menor. Para el corto plazo (28 días) el valor del coeficiente es de 2.46 mientras que el de largo plazo (364 días) el valor es de 2.72. 
 
 ### (i) 
@@ -1513,6 +1539,8 @@ Nótese que la variación del coeficiente de aversión al riesgo es también men
 **Interprete sus resultados.**
 
 Los resultados son consistentes con lo revisado en la literatura y, particularmente, con lo que indican los resultados de Romer. Nótese que los resultados para la $\theta$ en México son mayores que los calculados para el caso de Estados Unidos. Nótese, además, que las variaciones en los resultados para los distintos niveles de aversión al riesgo son pequeñas y esto nos lleva a concluir que hay consistencia entre las observaciones.
+
+\newpage
 
 ## Ejercicio 6
 **6. Utilice el método del árbol binomial para, primero, explicar el precio P=80 de un activo y, después, valuar un "call" sobre dicho activo, con precio de ejercicio K=P-N donde N es el número de su equipo, (Grupo 1, use N=1, Grupo 2, use N=2, etc) asumiendo una tasa de interés de 5 por ciento:**
